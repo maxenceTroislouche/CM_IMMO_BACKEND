@@ -40,6 +40,13 @@ CREATE TABLE photo (
     PRIMARY KEY (id)
 );
 
+CREATE TABLE type_tiers (
+    id INT NOT NULL AUTO_INCREMENT,
+    lib VARCHAR(200) NOT NULL,
+
+    PRIMARY KEY (id)
+);
+
 /* Creates Tiers table */
 CREATE TABLE tiers (
     id INT NOT NULL AUTO_INCREMENT,
@@ -48,9 +55,12 @@ CREATE TABLE tiers (
     date_de_naissance DATE NOT NULL,
     numero_securite_sociale INT NOT NULL,
     rib INT NOT NULL,
+    id_type_tiers INT NOT NULL,
 
     PRIMARY KEY (id) 
 );
+
+ALTER TABLE tiers ADD FOREIGN KEY (id_type_tiers) REFERENCES type_tiers(id);
 
 /* Creates bien table */
 CREATE TABLE bien (
