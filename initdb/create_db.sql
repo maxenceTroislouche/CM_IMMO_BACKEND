@@ -53,8 +53,8 @@ CREATE TABLE tiers (
     nom VARCHAR(100) NOT NULL,
     prenom VARCHAR(100) NOT NULL,
     date_de_naissance DATE NOT NULL,
-    numero_securite_sociale INT NOT NULL,
-    rib INT NOT NULL,
+    numero_securite_sociale VARCHAR(20) NOT NULL,
+    rib VARCHAR(25) NOT NULL,
     id_type_tiers INT NOT NULL,
 
     PRIMARY KEY (id) 
