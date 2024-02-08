@@ -1,7 +1,7 @@
 import json
 
 # Chemin vers le fichier JSON
-chemin_fichier = 'C:/Users/loic/Downloads/france.json'
+chemin_fichier = 'france.json'
 
 # Chemin vers le fichier SQL de sortie
 chemin_sql = 'insert.sql'

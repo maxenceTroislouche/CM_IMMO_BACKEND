@@ -2,7 +2,7 @@ import json
 
 # Chemin du fichier JSON
 #json_path = r'C:/Users/loic/Desktop/Spacework/LA2/ProjetMobile/generation/prenoms/surnames.json'
-json_path = r'C:/Users/loic/Desktop/Spacework/LA2/ProjetMobile/generation/prenoms/prenom2.json'
+json_path = r'prenom2.json'
 
 # Charger le contenu du fichier JSON
 with open(json_path, 'r') as file:
