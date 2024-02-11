@@ -4798,7 +4798,7 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS insert_bien_data;
 CREATE PROCEDURE insert_bien_data(IN num_inserts INT)
 BEGIN
-    DECLARE i INT DEFAULT 0;
+        DECLARE i INT DEFAULT 0;
     -- Générer des valeurs aléatoires pour les champs
         DECLARE id_ville_temp INT;
         DECLARE id_type_bien_temp INT;
@@ -4810,9 +4810,15 @@ BEGIN
         DECLARE type_chauffage_temp VARCHAR(50);
         DECLARE nom2rue VARCHAR(100);
 
+        DECLARE j INT DEFAULT 0;
+        DECLARE nbre_piece INT;
+        DECLARE v_piece INT;
+        DECLARE v_surface INT;
+        DECLARE v_tempid_bien INT;
+
     WHILE i < num_inserts DO
 
-        
+
         -- Générer des valeurs aléatoires pour les champs
         SET id_ville_temp = (SELECT id FROM ville ORDER BY RAND() LIMIT 1);
         SET id_type_bien_temp = (SELECT id FROM type_bien ORDER BY RAND() LIMIT 1);
@@ -4837,7 +4843,8 @@ BEGIN
 
         SET surface_habitable_temp = ROUND(RAND() * 130) + 20; -- Valeur aléatoire entre 20 et 150
 
-        SET type_chauffage_temp = CASE ROUND(RAND() * 2)
+        SET nbre_piece = (ROUND(RAND() * 2)+1);
+        SET type_chauffage_temp = CASE nbre_piece
             WHEN 0 THEN 'electrique'
             WHEN 1 THEN 'charbon'
             WHEN 2 THEN 'radiateur'
@@ -4849,6 +4856,19 @@ BEGIN
         -- Effectuer l'insertion dans la table bien
         INSERT INTO bien (num_rue, nom_rue, id_ville, id_type_bien, etage, num_appartement, date_creation, classification_taille, surface_habitable, type_chauffage, num_version)
         VALUES (ROUND(RAND() * 99), nom2rue, id_ville_temp, id_type_bien_temp, etage_temp, num_appartement_temp, date_creation_temp, classification_taille_temp, surface_habitable_temp, type_chauffage_temp, 1);
+
+        -- INSERT PIECE
+        SET j = 0;
+        SET v_surface = (surface_habitable_temp DIV nbre_piece);
+        SET v_tempid_bien = (SELECT LAST_INSERT_ID());
+        WHILE j <= nbre_piece DO
+            #SET v_piece = (SELECT CEIL(RAND() * 12));
+            SET v_piece = (SELECT id FROM type_piece ORDER BY RAND() LIMIT 1);
+
+            INSERT INTO `piece` (`id_bien`, `numero`, `description`, `id_type_piece`, `surface`)
+            VALUES (v_tempid_bien, j, (SELECT nom FROM type_piece WHERE id = v_piece), v_piece, v_surface);
+            SET j = j+1;
+        END WHILE;
 
         SET i = i + 1;
     END WHILE;
@@ -4898,5 +4918,4 @@ DELIMITER ;
 -- --------------------------------------------------------------------------------------
 call insert_tiers_data(360);
 call insert_bien_data(250);
-CALL insert_bail_data(150);
-
+call insert_bail_data(150);

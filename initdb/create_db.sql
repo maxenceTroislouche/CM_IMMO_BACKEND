@@ -87,7 +87,6 @@ CREATE TABLE piece (
     numero INT NOT NULL,
     description VARCHAR(200) NOT NULL,
     id_type_piece INT NOT NULL,
-    id_categorie_piece INT NOT NULL,
     surface VARCHAR(50) NOT NULL,
 
     PRIMARY KEY (id)
@@ -169,8 +168,6 @@ ALTER TABLE piece
 ADD FOREIGN KEY (id_bien) REFERENCES bien(id);
 ALTER TABLE piece
 ADD FOREIGN KEY (id_type_piece) REFERENCES type_piece(id);
-ALTER TABLE piece
-ADD FOREIGN KEY (id_categorie_piece) REFERENCES categorie_piece(id);
 
 ALTER TABLE bail
 ADD FOREIGN KEY (id_bien) REFERENCES bien(id);
