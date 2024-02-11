@@ -99,6 +99,9 @@ CREATE TABLE bail (
     id_bien INT NOT NULL,
     id_locataire INT NOT NULL,
     id_proprietaire INT NOT NULL,
+    id_agent INT NOT NULL,
+    date_debut_bail date NOT NULL,
+    date_signature date NOT NULL
 
     PRIMARY KEY (id)
 );
@@ -175,6 +178,8 @@ ALTER TABLE bail
 ADD FOREIGN KEY (id_locataire) REFERENCES tiers(id);
 ALTER TABLE bail
 ADD FOREIGN KEY (id_proprietaire) REFERENCES tiers(id);
+ALTER TABLE bail
+ADD FOREIGN KEY (id_agent) REFERENCES tiers(id);
 
 ALTER TABLE minute
 ADD FOREIGN KEY (id_piece) REFERENCES piece(id);
