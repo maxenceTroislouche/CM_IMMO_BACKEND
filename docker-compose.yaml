@@ -1,0 +1,36 @@
+version : '1.0'
+services:
+  database:
+    image: 'appmobile-database'
+    container_name: appmobile-database
+    restart: unless-stopped
+    build: ./database
+    env_file:
+      - ./database/.env
+    volumes:
+      - appmobile-data:/data/db
+    ports: 
+      - 5432:5432
+    networks:
+      - appmobile-network
+  
+  api:
+    image: 'appmobile-api'
+    container_name: appmobile-api
+    restart: unless-stopped
+    build: ./api
+    links:
+      - database:database
+    depends_on :
+      - database
+    ports: 
+      - 3000:3000
+    networks:
+      - appmobile-network
+
+volumes:
+  appmobile-data:
+
+networks:
+  appmobile-network:
+    name : appmobile

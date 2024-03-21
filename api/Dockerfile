@@ -1,38 +1,24 @@
-# Build step
-FROM node:alpine AS builder
+# Create base image
+FROM node:20-slim AS base
 
-WORKDIR /usr/src/app
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
 
-## Install dependancies
-COPY ./package.json ./
-COPY ./pnpm-lock.yml ./
-RUN pnpm install --frozen-lockfile
+WORKDIR /app
 
-## Copy sources
-COPY ./src ./src
-COPY ./tsconfig*.json ./
-COPY ./nest-cli.json ./
+FROM base AS prod-deps
+COPY package.json pnpm-lock.yaml ./
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile
 
-## Build app
-RUN nest build
+FROM base AS build
+COPY . .
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+RUN pnpm run build
 
-# Runtime step
-FROM node:alpine AS runtime
-
-WORKDIR /usr/src/app
-
-## Copy built files from the builder container
-COPY --from=builder /usr/src/app/dist /usr/src/app/dist
-
-## Install runtime dependancies
-COPY ./package.json ./
-COPY ./pnpm-lock.yaml ./
-COPY ./nest-cli.json ./
-COPY ./tsconfig*.json ./
-RUN pnpm install --frozen-lockfile
-
-# Port exposed by the container
+FROM base
+COPY package.json ./
+COPY --from=prod-deps /app/node_modules /app/node_modules
+COPY --from=build /app/dist /app/dist
 EXPOSE 3000
-
-## Start app
-CMD ["nest","start"]
+CMD [ "node", "dist/main.js" ]
