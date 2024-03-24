@@ -1,4 +1,4 @@
-version : '1.0'
+version : '3.8'
 services:
   database:
     image: 'appmobile-database'
@@ -8,7 +8,7 @@ services:
     env_file:
       - ./database/.env
     volumes:
-      - appmobile-data:/data/db
+      - ./data/db:/data/db
     ports: 
       - 5432:5432
     networks:
@@ -28,9 +28,30 @@ services:
     networks:
       - appmobile-network
 
+  sftp:
+    image: 'appmobile-sftp'
+    container_name: appmobile-sftp
+    restart: unless-stopped
+    build: ./sftp
+    ports:
+      - 22:22
+    volumes:
+      - ./data/sftp:/var/sftp/uploads
+    networks:
+      - appmobile-network
+      
+  cloudflared:
+    container_name: cloudflared
+    image: cloudflare/cloudflared:latest
+    command: tunnel --no-autoupdate run --token eyJhIjoiNjFlNTIzNWJkNjgwZDFjM2FjOTM3ODAwYTc3NTdlNWEiLCJ0IjoiZTllNzUxZjAtNzQxOC00NmRkLWE2ZjMtZjg0ZmQ2ZGNlMWVjIiwicyI6Ik5EUm1ZakJoT1RndFlXUXhZaTAwTUdFekxXRTFPV1F0TWpneVpHUXpaVFZsWVdJeCJ9
+    restart: unless-stopped
+    networks:
+      - appmobile-network
+
 volumes:
   appmobile-data:
 
 networks:
   appmobile-network:
     name : appmobile
+    extrenal: true
