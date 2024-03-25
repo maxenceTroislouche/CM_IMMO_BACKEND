@@ -54,4 +54,4 @@ volumes:
 networks:
   appmobile-network:
     name : appmobile
-    extrenal: true
+    external: true

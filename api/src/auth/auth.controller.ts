@@ -19,12 +19,14 @@ export class AuthController {
 
   @Post()
   create(@Body() createAuthDto: CreateAuthDto) {
-    return this.authService.create(createAuthDto);
+    console.log("Controller");
+    //return this.authService.create(createAuthDto);
   }
 
   @Get()
   findAll() {
-    return this.authService.findAll();
+    console.log("Controller");
+    //return this.authService.findAll();
   }
 
   @Get(':id')
