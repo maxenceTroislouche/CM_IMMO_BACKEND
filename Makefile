@@ -15,15 +15,15 @@ network:
 
 # Construire ou reconstruire les services
 build:
-	docker-compose -f $(COMPOSE_FILE) build
+	docker-compose -f build
 
 # Démarrer les services en arrière-plan
 up:
-	docker-compose -f $(COMPOSE_FILE) up -d
+	docker-compose up -d
 
 # Arrêter et supprimer les conteneurs, les réseaux, les volumes et les images créés par `up`
 down:
-	docker-compose -f $(COMPOSE_FILE) down
+	docker-compose down
 
 # Supprimer le réseau externe
 remove-network:
@@ -31,15 +31,14 @@ remove-network:
 
 # Arrêter les services
 stop:
-	docker-compose -f $(COMPOSE_FILE) stop
+	docker-compose stop
 
 # Supprimer les conteneurs arrêtés et les réseaux non utilisés (pas les volumes ni les images)
 clean:
-	docker-compose -f $(COMPOSE_FILE) rm -f
+	docker-compose down -v
 	docker network prune -f
 
 # Afficher les journaux des services
 logs:
-	docker-compose -f $(COMPOSE_FILE) logs
+	docker-compose logs
 
-.PHONY: all network build up down remove-network stop clean logs
