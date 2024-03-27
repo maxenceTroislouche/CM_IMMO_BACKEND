@@ -15,7 +15,7 @@ network:
 
 # Construire ou reconstruire les services
 build:
-	docker-compose -f build
+	docker-compose build
 
 # Démarrer les services en arrière-plan
 up:
