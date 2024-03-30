@@ -12,28 +12,29 @@ export class AuthService {
   private authRepository: Repository<Auth>;
 
   async create(createAuthDto: CreateAuthDto) {
-    console.log('service');
     let auth = new Auth();
     auth.utilisateur = createAuthDto.username;
     auth.mot_de_passe = createAuthDto.password;
 
-    auth = await this.authRepository.save(auth);
-    return auth;
+    return this.authRepository.save(auth);
   }
 
   findAll() {
-    return `This action returns all auth`;
+    return this.authRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} auth`;
+    return this.authRepository.find();
   }
 
   update(id: number, updateAuthDto: UpdateAuthDto) {
-    return `This action updates a #${id} auth`;
+    let auth = new Auth();
+    auth.utilisateur = updateAuthDto.username;
+    auth.mot_de_passe = updateAuthDto.password;
+    return this.authRepository.update(id,auth);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
+  remove(id: number) {  
+    return this.authRepository.delete(id);
   }
 }

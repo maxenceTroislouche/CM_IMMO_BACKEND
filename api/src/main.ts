@@ -8,24 +8,28 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // Add a global prefix
-  app.setGlobalPrefix('api-lap');
+  app.setGlobalPrefix('immotepAPI');
+
+  // Enable CORS
+  app.enableCors();
+  
+  // Enable versioning
+  app.enableVersioning({
+    type: VersioningType.URI,
+    defaultVersion: ['1'],
+  });
 
   // Swagger configuration
   const swaggerConfig = new DocumentBuilder()
-    .setTitle('API - LAP')
+    .setTitle('API - Immotep')
     .setDescription(
-      'API used by the mobile application LAP, an application made for make inventories easier',
+      'API used by the mobile application Immotep, an application made for make inventories easier',
     )
     .setVersion('1.0')
-    .addTag('LAP')
+    .addTag('Immotep')
     .build();
   const swaggerDocument = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('/', app, swaggerDocument);
-  
-  // Enable CORS
-  app.enableCors();
-
-  // TODO Enable versioning
 
   await app.listen(3000);
 }

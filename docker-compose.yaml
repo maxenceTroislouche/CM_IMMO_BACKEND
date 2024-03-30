@@ -1,8 +1,8 @@
 version : '3.8'
 services:
   database:
-    image: 'appmobile-database'
-    container_name: appmobile-database
+    image: 'immotep-database'
+    container_name: immotep-database
     restart: unless-stopped
     build: ./database
     env_file:
@@ -12,11 +12,11 @@ services:
     ports: 
       - 5432:5432
     networks:
-      - appmobile-network
+      - immotep-network
   
   api:
-    image: 'appmobile-api'
-    container_name: appmobile-api
+    image: 'immotep-api'
+    container_name: immotep-api
     restart: unless-stopped
     build: ./api
     links:
@@ -26,11 +26,11 @@ services:
     ports: 
       - 3000:3000
     networks:
-      - appmobile-network
+      - immotep-network
 
   sftp:
-    image: 'appmobile-sftp'
-    container_name: appmobile-sftp
+    image: 'immotep-sftp'
+    container_name: immotep-sftp
     restart: unless-stopped
     build: ./sftp
     ports:
@@ -38,7 +38,7 @@ services:
     volumes:
       - ./data/sftp:/var/sftp/uploads
     networks:
-      - appmobile-network
+      - immotep-network
       
   cloudflared:
     container_name: cloudflared
@@ -46,12 +46,12 @@ services:
     command: tunnel --no-autoupdate run --token eyJhIjoiNjFlNTIzNWJkNjgwZDFjM2FjOTM3ODAwYTc3NTdlNWEiLCJ0IjoiZTllNzUxZjAtNzQxOC00NmRkLWE2ZjMtZjg0ZmQ2ZGNlMWVjIiwicyI6Ik5EUm1ZakJoT1RndFlXUXhZaTAwTUdFekxXRTFPV1F0TWpneVpHUXpaVFZsWVdJeCJ9
     restart: unless-stopped
     networks:
-      - appmobile-network
+      - immotep-network
 
 volumes:
-  appmobile-data:
+  immotep-data:
 
 networks:
-  appmobile-network:
-    name : appmobile
+  immotep-network:
+    name : immotep
     external: true
