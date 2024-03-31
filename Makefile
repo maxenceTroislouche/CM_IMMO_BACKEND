@@ -2,16 +2,7 @@
 NETWORK_NAME := appmobile
 
 # Commande par défaut lors de l'exécution de `make` sans arguments
-all: network build up
-
-# Créer le réseau externe s'il n'existe pas déjà
-network:
-	@if [ -z "$$(docker network ls --filter name=^${NETWORK_NAME}$$ -q)" ]; then \
-		echo "Creating network ${NETWORK_NAME}"; \
-		docker network create ${NETWORK_NAME}; \
-	else \
-		echo "Network ${NETWORK_NAME} already exists"; \
-	fi
+all: build up
 
 # Construire ou reconstruire les services
 build:
@@ -41,4 +32,3 @@ clean:
 # Afficher les journaux des services
 logs:
 	docker-compose logs
-
