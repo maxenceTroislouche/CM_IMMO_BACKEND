@@ -11,7 +11,7 @@ Avant de démarrer, assurez-vous d'avoir installé Docker et Docker Compose sur 
 Avant de lancer l'application, vous devez créer un réseau Docker externe. Ce réseau permettra aux conteneurs de communiquer entre eux. Pour créer le réseau, exécutez la commande suivante dans votre terminal :
 
 ```bash
-docker network create appmobile
+docker network create immotep-network
 ```
 
 Cette étape n'est requise qu'une seule fois. Si le réseau `appmobile` existe déjà, Docker ignorera simplement la commande sans afficher d'erreur.
