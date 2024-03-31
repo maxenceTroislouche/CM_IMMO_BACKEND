@@ -53,5 +53,4 @@ volumes:
 
 networks:
   immotep-network:
-    name : immotep
     external: true
