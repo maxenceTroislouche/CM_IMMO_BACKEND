@@ -1,5 +1,5 @@
 # Nom du réseau externe
-NETWORK_NAME := appmobile
+NETWORK_NAME := immotep-network
 
 # Commande par défaut lors de l'exécution de `make` sans arguments
 all: network build up
