@@ -1,40 +1,25 @@
-import { Injectable } from '@nestjs/common';
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Auth } from './entities/auth.entity';
-import { Repository } from 'typeorm';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { AgentsService } from '../agents/agents.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
+  constructor(
+    private usersService: AgentsService,
+    private jwtService: JwtService,
+  ) {}
 
-  @InjectRepository(Auth)
-  private authRepository: Repository<Auth>;
+  async signIn(username: string, password: string): Promise<{access_token: string}> {
+    const agent = await this.usersService.findOneByUsername(username);
+    if (agent?.mot_de_passe !== password) {
+      throw new UnauthorizedException();
+    }
 
-  async create(createAuthDto: CreateAuthDto) {
-    let auth = new Auth();
-    auth.utilisateur = createAuthDto.username;
-    auth.mot_de_passe = createAuthDto.password;
+    const payload = { sub : agent.id, username: agent.utilisateur};
 
-    return this.authRepository.save(auth);
+    return {
+      access_token : await this.jwtService.signAsync(payload)
+    }
   }
 
-  findAll() {
-    return this.authRepository.find();
-  }
-
-  findOne(id: number) {
-    return this.authRepository.find();
-  }
-
-  update(id: number, updateAuthDto: UpdateAuthDto) {
-    let auth = new Auth();
-    auth.utilisateur = updateAuthDto.username;
-    auth.mot_de_passe = updateAuthDto.password;
-    return this.authRepository.update(id,auth);
-  }
-
-  remove(id: number) {  
-    return this.authRepository.delete(id);
-  }
 }

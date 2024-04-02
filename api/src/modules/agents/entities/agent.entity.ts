@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
 
 @Entity('agent')
-export class Auth {
+export class Agent {
     @PrimaryGeneratedColumn()
     id: string;
 
