@@ -11,7 +11,7 @@ import {TypeOrmModule} from '@nestjs/typeorm';
       username: 'lap-api',
       password: 'password',
       database: 'lapdb',
-      entities:['auth/entities/auth.entity.ts'],
+      //entities:['modules/agents/entities/agent.entity.{js,ts}'],
       synchronize: true,  // Should'nt be used in production
       autoLoadEntities: true
     }),

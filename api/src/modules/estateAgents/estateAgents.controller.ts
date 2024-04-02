@@ -1,14 +1,14 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { AgentsService } from './agents.service';
-import { CreateAgentDto } from './dto/create-agent.dto';
-import { UpdateAgentDto } from './dto/update-agent.dto';
+import { EstateAgentsService } from './estateAgents.service';
+import { CreateEstateAgentDto } from './dto/create-estateAgent.dto';
+import { UpdateEstateAgentDto } from './dto/update-estateAgent.dto';
 
 @Controller('agents')
-export class AgentsController {
-  constructor(private readonly agentsService: AgentsService) {}
+export class EstateAgentsController {
+  constructor(private readonly agentsService: EstateAgentsService) {}
 
   @Post()
-  create(@Body() createAgentDto: CreateAgentDto) {
+  create(@Body() createAgentDto: CreateEstateAgentDto) {
     return this.agentsService.create(createAgentDto);
   }
 
@@ -28,7 +28,7 @@ export class AgentsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAgentDto: UpdateAgentDto) {
+  update(@Param('id') id: string, @Body() updateAgentDto: UpdateEstateAgentDto) {
     return this.agentsService.update(id, updateAgentDto);
   }
 
