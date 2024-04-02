@@ -2,14 +2,14 @@
   "database": {
     "host": "localhost",
     "port": 5432,
-    "username": "lap-api",
-    "password": "password",
-    "database": "lapdb"
+    "username": "immotep-api",
+    "password": "APIUSERPASSWORDHERE",
+    "database": "immotepdb"
   },
   "sftp": {
     "host": "localhost",
     "port": 22,
-    "username": "sftp_user",
+    "username": "immotep-sftp",
     "password": "SFTPUSERPASSWORDHERE"
   }
 }
