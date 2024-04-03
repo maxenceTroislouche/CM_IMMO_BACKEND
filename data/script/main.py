@@ -1,11 +1,13 @@
 from pathlib import Path
 from typing import NoReturn
 
-from backoffice_dev_script.database.database import Database
-from backoffice_dev_script.models.agent import AgentCollection, Agent
+from data.script.config.config import ConfigParser
+from data.script.database.base import BaseSQLDatabase
+from data.script.database.database import PostgresSQLDatabase
+from data.script.models.agent import AgentCollection, Agent
 
 
-def create_agents(database: Database) -> NoReturn:
+def create_agents(database: BaseSQLDatabase) -> NoReturn:
     agent_collection = AgentCollection()
     agent_collection.clear_db(database)
     agent_collection.append(Agent(username="Tim", password="premier_mot_de_passe"))
@@ -17,7 +19,7 @@ def create_agents(database: Database) -> NoReturn:
 
 def main():
     config_file = Path("./config.json")
-    database = Database(config_file)
+    database = PostgresSQLDatabase(config_file, ConfigParser)
     create_agents(database)
 
 

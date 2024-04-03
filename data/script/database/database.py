@@ -3,10 +3,14 @@ from typing import NoReturn
 
 import psycopg2
 
-from backoffice_dev_script.config.config import ConfigParser
+from data.script.config.base import BaseConfigParser
+from data.script.database.base import BaseSQLDatabase
 
 
-class Database:
+class PostgresSQLDatabase(BaseSQLDatabase):
+    """
+    PostgreSQL database interactions
+    """
     config_path: Path
     host: str
     port: int
@@ -21,18 +25,13 @@ class Database:
                                 user=self.username,
                                 password=self.password)
 
-    def __close_connection(self):
+    def __disconnect(self):
         self.conn.close()
 
-    def __init__(self, config_path: Path) -> NoReturn:
+    def __init__(self, config_path: Path, config_parser_cls: BaseConfigParser.__class__) -> NoReturn:
+        self.conn = None
         self.config_path = config_path
-        config_parser = ConfigParser(config_path)
-        self.host = config_parser.database_config.get("host")
-        self.port = config_parser.database_config.get("port")
-        self.username = config_parser.database_config.get("username")
-        self.password = config_parser.database_config.get("password")
-        self.database = config_parser.database_config.get("database")
-        self.conn = self.__connect()
+        super().__init__(config_path, config_parser_cls)
 
     def execute_query(self, query: str) -> NoReturn:
         cursor = self.conn.cursor()
@@ -50,4 +49,4 @@ class Database:
         return rows
 
     def __del__(self):
-        self.__close_connection()
+        self.__disconnect()

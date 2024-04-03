@@ -1,6 +1,6 @@
 from typing import NoReturn
 
-from backoffice_dev_script.database.database import Database
+from data.script.database.database import Database
 
 
 class Agent:

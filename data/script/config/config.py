@@ -2,24 +2,21 @@ import json
 from pathlib import Path
 from typing import NoReturn
 
+from data.script.config.base import BaseConfigParser
 
-class ConfigParser:
+
+class ConfigParser(BaseConfigParser):
     config_path: Path
 
     def __init__(self, config_path: Path):
         self.config_path = config_path
-        self.database_config = {}
-        self.sftp_config = {}
-        self.__parse()
+        self.parse()
 
-    def __parse(self) -> NoReturn:
+    def parse(self) -> NoReturn:
         with open(self.config_path, "r") as f:
             data = json.load(f)
-            self.database_config = {
-                "host": data["database"]["host"],
-                "port": data["database"]["port"],
-                "username": data["database"]["username"],
-                "password": data["database"]["password"],
-                "database": data["database"]["database"]
-            }
-            self.sftp_config = {}
+            self.db_host = data["database"]["host"]
+            self.db_port = data["database"]["port"]
+            self.db_user = data["database"]["username"]
+            self.db_password = data["database"]["password"]
+            self.db_name = data["database"]["database"]
