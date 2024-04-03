@@ -1,4 +1,5 @@
 ./api/node_modules
 ./api/.env
-./backoffice_dev_script/.venv/*
+./database/.env
+./data/script/.venv/*
 .idea
