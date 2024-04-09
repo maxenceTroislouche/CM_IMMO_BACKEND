@@ -2,7 +2,10 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { EstateAgentsService } from './estateAgents.service';
 import { CreateEstateAgentDto } from './dto/create-estateAgent.dto';
 import { UpdateEstateAgentDto } from './dto/update-estateAgent.dto';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags("Estate agents")
+@ApiBearerAuth()
 @Controller('agents')
 export class EstateAgentsController {
   constructor(private readonly agentsService: EstateAgentsService) {}

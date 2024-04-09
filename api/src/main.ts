@@ -27,6 +27,13 @@ async function bootstrap() {
     )
     .setVersion('1.0')
     .addTag('Immotep')
+    .addBearerAuth({
+      description: 'No need to put the "bearer" keyword in front of token',
+      type: 'http',
+      in: 'header',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+    },)
     .build();
   const swaggerDocument = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('/', app, swaggerDocument);
