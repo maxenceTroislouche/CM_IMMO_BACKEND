@@ -13,9 +13,7 @@ import { JwtService } from '@nestjs/jwt';
   },JwtService
 ],
   imports: [
-    ConfigModule.forRoot(
-      {envFilePath: ['.env.local','.env.development','.env']}
-    ),
+    ConfigModule.forRoot(),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
