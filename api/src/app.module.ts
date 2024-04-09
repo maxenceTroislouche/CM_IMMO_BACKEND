@@ -13,18 +13,18 @@ import { JwtService } from '@nestjs/jwt';
   },JwtService
 ],
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({isGlobal:true}),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => ({
         type: 'postgres',
-        host: configService.get<string>('DB_HOST'),
-        port: configService.get<number>('DB_PORT'),
-        username: configService.get<string>('DB_USERNAME'),
-        password: configService.get<string>('DB_PASSWORD'),
-        database: configService.get<string>('DB_DATABASE'),
-        synchronize: configService.get<boolean>('DB_SYNCHRONIZE'), // Should'nt be used in production
+        host: 'database',
+        port: 5432,
+        username: 'immotep-api',
+        password: 'password',
+        database: 'immotepdb',
+        synchronize: true, // Should'nt be used in production
         autoLoadEntities: true,
       }),
     }),
