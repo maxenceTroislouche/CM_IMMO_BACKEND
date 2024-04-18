@@ -24,7 +24,7 @@ import { JwtService } from '@nestjs/jwt';
         username: 'immotep-api',
         password: 'password',
         database: 'immotepdb',
-        synchronize: true, // Should'nt be used in production
+        //synchronize: true, // Should'nt be used in production
         autoLoadEntities: true,
       }),
     }),
