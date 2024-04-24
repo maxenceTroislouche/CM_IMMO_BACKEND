@@ -25,9 +25,4 @@ export class AuthController {
   signIn(@Body() signInDto: SignInDto) {
     return this.authService.signIn(signInDto.username, signInDto.password);
   }
-
-  @Get('profile')
-  getProfile(@Request() req) {
-    return req.user;
-  }
 }
