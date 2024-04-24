@@ -1,4 +1,3 @@
-version : '3.8'
 services:
   database:
     image: 'immotep-database'
@@ -8,7 +7,7 @@ services:
     env_file:
       - ./database/.env
     volumes:
-      - ./data/db:/data/db
+      - immotep-data:/var/lib/postgresql/data
     ports: 
       - 5432:5432
     networks:
@@ -29,18 +28,6 @@ services:
       - 3000:3000
     networks:
       - immotep-network
-
-  sftp:
-    image: 'immotep-sftp'
-    container_name: immotep-sftp
-    restart: unless-stopped
-    build: ./sftp
-    ports:
-      - 22:22
-    volumes:
-      - ./data/sftp:/var/sftp/uploads
-    networks:
-      - immotep-network
       
   # cloudflared:
   #   container_name: cloudflared
@@ -52,8 +39,9 @@ services:
 
 volumes:
   immotep-data:
+    name : 'immotep-data'
 
 networks:
   immotep-network:
-    name : immotep-network
-    external: true
+    name : 'immotep-network'
+    driver: bridge
