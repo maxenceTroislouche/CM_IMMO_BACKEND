@@ -6,6 +6,8 @@ import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './modules/auth/auth.guard';
 import { JwtService } from '@nestjs/jwt';
 import { typeOrmConfigAsync } from './config/typeorm.config';
+import { AgentsModule } from './modules/estateAgents/estateAgents.module';
+import { PropertiesModule } from './modules/properties/properties.module';
 
 @Module({
   providers: [{
@@ -17,6 +19,8 @@ import { typeOrmConfigAsync } from './config/typeorm.config';
     ConfigModule.forRoot({isGlobal:true}),
     TypeOrmModule.forRootAsync(typeOrmConfigAsync),
     AuthModule,
+    AgentsModule,
+    PropertiesModule
   ],
 })
 export class AppModule {}

@@ -10,6 +10,8 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 export class EstateAgentsController {
   constructor(private readonly agentsService: EstateAgentsService) {}
 
+  //TODO : Remove some of this endpoints
+
   @Post()
   @ApiOperation({ summary: 'Create an estate agent' })
   @HttpCode(HttpStatus.OK)

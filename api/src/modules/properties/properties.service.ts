@@ -1,26 +1,33 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePropertyDto } from './dto/create-property.dto';
 import { UpdatePropertyDto } from './dto/update-property.dto';
+import { Property } from './entities/property.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class PropertiesService {
+    
+  @InjectRepository(Property)
+  private propertyRepository: Repository<Property>;
+
   create(createPropertyDto: CreatePropertyDto) {
-    return 'This action adds a new property';
+    return 'WIP';
   }
 
   findAll() {
-    return `This action returns all properties`;
+    return this.propertyRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} property`;
+    return this.propertyRepository.findOneBy({id:id});
   }
 
   update(id: number, updatePropertyDto: UpdatePropertyDto) {
-    return `This action updates a #${id} property`;
+    return `WIP`;
   }
 
   remove(id: number) {
-    return `This action removes a #${id} property`;
+    return this.propertyRepository.delete(id);
   }
 }

@@ -1,5 +1,6 @@
-import { Column, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
+@Entity('bien')
 export class Property {
     @PrimaryGeneratedColumn()
     id: number;
@@ -46,10 +47,10 @@ export class Property {
     @Column({ name: 'surface_habitable'})
     livingArea:number;
 
-    @Column({ name: 'descriptions'})
+    @Column({ name: 'description'})
     description:string;
 
-    @Column({ name: 'photos'})
+    @Column("text", { name: 'photos', array: true })
     photos:string[];
 
 }
