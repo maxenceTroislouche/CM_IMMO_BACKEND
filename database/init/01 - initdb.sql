@@ -37,7 +37,7 @@ CREATE TABLE fonction_piece (
 CREATE TABLE agent (
     id SERIAL NOT NULL,
     nom_utilisateur VARCHAR(100) NOT NULL,
-    mot_de_passe VARCHAR(100) NOT NULL,
+    mot_de_passe VARCHAR(1000) NOT NULL,
     CONSTRAINT agent_pk PRIMARY KEY (id)
 );
 -- Table "abstraite" n'étant pas censée être utilisée directement

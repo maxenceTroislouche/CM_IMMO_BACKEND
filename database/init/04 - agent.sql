@@ -1,2 +1,2 @@
 INSERT INTO agent (nom_utilisateur , mot_de_passe)
-VALUES ('emichka', 'LjDmNDGJSEyNTiw8JMG@qMeA3#S&Scr5nnU4#bQz^Jn4zmf#DgN#^c8MrM&sLevy@U$Hv*BH*J#vth7wHfvkpfUgpUswo48aCj9Z^sfm9LkNFFga2oK$nn8fqUCJCVEH');
+VALUES ('admin', '$argon2id$v=19$m=65536,t=3,p=4$+RT5KYXIhaSs1QcRaeGQ1A$wk+boiDTHfvWpzF8yn3V4enlMSD95AiCS4R2fMtHZS0');

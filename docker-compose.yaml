@@ -7,7 +7,7 @@ services:
     env_file:
       - ./database/.env
     volumes:
-      - immotep-data:/var/lib/postgresql/data
+      - immotep-database-data:/var/lib/postgresql/data
     ports: 
       - 5432:5432
     networks:
@@ -38,8 +38,8 @@ services:
   #     - immotep-network
 
 volumes:
-  immotep-data:
-    name : 'immotep-data'
+  immotep-database-data:
+    name : 'immotep-database-data'
 
 networks:
   immotep-network:
