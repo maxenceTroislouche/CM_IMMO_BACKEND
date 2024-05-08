@@ -4,23 +4,36 @@ import { UpdatePropertyDto } from './dto/update-property.dto';
 import { Property } from './entities/property.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { FindAllPropertiesDto } from './dto/property-findall.dto';
 
 @Injectable()
 export class PropertiesService {
-    
   @InjectRepository(Property)
-  private propertyRepository: Repository<Property>;
+  private propertiesRepository: Repository<Property>;
 
   create(createPropertyDto: CreatePropertyDto) {
     return 'WIP';
   }
 
-  findAll() {
-    return this.propertyRepository.find();
+  async findAll() {
+    let properties = await this.propertiesRepository.find({ relations: ['owner', 'propertyType', 'contracts', 'contracts.owner', 'contracts.renter', 'contracts.reviews'] });
+    /*
+    let returnArray = [];
+    for (let property of properties) {
+      let property_obj = new FindAllPropertiesDto();
+      property_obj.id = property.id;
+      property_obj.nomProprietaire = property.owner.lastname;
+      property_obj.prenomProprietaire = property.owner.firstname;
+      property_obj.typeBien = property.propertyType.lib;
+      property_obj.photos = property_obj.photos; // TODO: Récupérer le chemin des photos
+      returnArray.push(property_obj);
+    }
+    */
+    return properties;
   }
 
   findOne(id: number) {
-    return this.propertyRepository.findOneBy({id:id});
+    return this.propertiesRepository.findOneBy({id:id});
   }
 
   update(id: number, updatePropertyDto: UpdatePropertyDto) {
@@ -28,6 +41,6 @@ export class PropertiesService {
   }
 
   remove(id: number) {
-    return this.propertyRepository.delete(id);
+    return this.propertiesRepository.delete(id);
   }
 }

@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Review } from 'src/modules/properties/entities/review.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('agent')
 export class EstateAgent {
@@ -10,4 +11,7 @@ export class EstateAgent {
 
   @Column({ name: 'mot_de_passe' })
   password: string;
+
+  @OneToMany(() => Review, review => review.estateAgent)
+  reviews: Review[];
 }

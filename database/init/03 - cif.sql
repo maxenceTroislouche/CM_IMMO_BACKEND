@@ -10,6 +10,7 @@ BEGIN
     IF NOT is_locataire THEN
         RAISE EXCEPTION '[signature_locataire] Echec de l''insertion, le tiers n''est pas un locataire';
     END IF;
+    RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -30,6 +31,7 @@ BEGIN
     IF NOT is_proprietaire THEN
         RAISE EXCEPTION '[signature_proprietaire] Echec de l''insertion, le tiers n''est pas un propriétaire';
     END IF;
+    RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -50,6 +52,7 @@ BEGIN
     THEN
         RAISE EXCEPTION '[bien] Echec de l''insertion, le propriétaire n''est pas de type propriétaire';
     END IF;
+    RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -70,6 +73,7 @@ BEGIN
     THEN
         RAISE EXCEPTION '[bien] une ou plusieurs photos du bien n''existe(nt) pas';
     END IF;
+    RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -86,6 +90,7 @@ BEGIN
     THEN
         RAISE EXCEPTION '[bail] date debut >= date fin';
     END IF;
+    RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -105,6 +110,7 @@ BEGIN
     THEN
         RAISE EXCEPTION '[bail] Le propriétaire du bail n''est pas le propriétaire du bien !';
     END IF;
+    RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -124,6 +130,7 @@ BEGIN
     THEN
         RAISE EXCEPTION '[bail] Le locataire n''est pas un locataire !';
     END IF;
+    RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -146,6 +153,7 @@ BEGIN
     THEN
         RAISE EXCEPTION '[minute] une ou plusieurs photos de la minute n''existe(nt) pas';
     END IF;
+    RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 

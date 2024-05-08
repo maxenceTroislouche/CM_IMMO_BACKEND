@@ -2,8 +2,11 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { PropertiesService } from './properties.service';
 import { CreatePropertyDto } from './dto/create-property.dto';
 import { UpdatePropertyDto } from './dto/update-property.dto';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+
+@ApiTags("Properties")
+@ApiBearerAuth()
 @Controller('properties')
 @ApiTags('Properties')
 @ApiBearerAuth()
@@ -16,8 +19,9 @@ export class PropertiesController {
   }
 
   @Get()
-  findAll() {
-    return this.propertiesService.findAll();
+  @ApiOperation({ summary: 'Get all properties' })
+  async findAll() {
+    return await this.propertiesService.findAll();
   }
 
   @Get(':id')

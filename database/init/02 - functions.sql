@@ -90,6 +90,13 @@ RETURNS BOOLEAN AS $$
 DECLARE
     res_check BOOLEAN;
 BEGIN
+    -- Si le tableau est vide, on retourne vrai
+    IF array_length(photos, 1) IS NULL
+    THEN
+        RETURN TRUE;
+    END IF;
+
+    -- Sinon on vérifie chaque photo
     FOR i IN 1..array_length(photos, 1) LOOP
         SELECT check_photo_exists(photos[i]) INTO res_check;
 
@@ -107,10 +114,10 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION check_is_tiers_the_owner(id_tiers INT, id_bien INT)
 RETURNS BOOLEAN AS $$
 DECLARE
-    id_proprietaire INT;
+    id_proprietaire_var INT;
 BEGIN
-    SELECT id_proprietaire INTO id_proprietaire FROM bien WHERE id = id_bien;
-    IF id_tiers = id_proprietaire
+    SELECT id_proprietaire INTO id_proprietaire_var FROM bien WHERE id = id_bien;
+    IF id_tiers = id_proprietaire_var
     THEN
         RETURN TRUE;
     END IF;
