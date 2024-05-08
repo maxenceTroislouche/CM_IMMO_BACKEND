@@ -36,10 +36,27 @@ services:
   #   restart: unless-stopped
   #   networks:
   #     - immotep-network
+  immotep-object-storage:
+    image: minio/minio:latest
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadminpassword
+      MINIO_MODE: single
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadminpassword
+    volumes:
+      - immotep-object-storage-data:/data
+    command: server --console-address ":9001" /data
+    networks:
+      - immotep-network
 
 volumes:
   immotep-database-data:
     name : 'immotep-database-data'
+  immotep-object-storage-data:
 
 networks:
   immotep-network:
