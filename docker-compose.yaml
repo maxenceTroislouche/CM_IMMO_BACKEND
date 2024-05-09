@@ -38,9 +38,13 @@ services:
   #     - immotep-network
   immotep-object-storage:
     image: minio/minio:latest
+    container_name: immotep-object-storage
     ports:
       - "9000:9000"
       - "9001:9001"
+    expose:
+      - 9000
+      - 9001
     environment:
       MINIO_ACCESS_KEY: minioadmin
       MINIO_SECRET_KEY: minioadminpassword
@@ -57,8 +61,10 @@ volumes:
   immotep-database-data:
     name : 'immotep-database-data'
   immotep-object-storage-data:
+    name : 'immotep-object-storage-data'
 
 networks:
   immotep-network:
     name : 'immotep-network'
     driver: bridge
+    external: true

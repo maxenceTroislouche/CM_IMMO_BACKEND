@@ -22,11 +22,9 @@ export class FindAllPropertiesDto {
     @IsString()
     typeBien: string;
 
-    /*
     @ApiProperty()
     @IsNumber()
     pourcentageAvancement: number;
-    */
    
     @ApiProperty()
     @IsArray()

@@ -24,9 +24,12 @@ INSERT INTO tiers (id, id_type_tiers, nom, prenom, date_de_naissance, numero_sec
 -- Insérer tiers propriétaire
 INSERT INTO tiers (id, id_type_tiers, nom, prenom, date_de_naissance, numero_securite_sociale, rib) VALUES (2, 2, 'Troislouche', 'Maxence', DATE('2002-11-28'), 'NUM SECU TEST MAX', 'RIB TEST MAX');
 
+-- Insérer photo
+INSERT INTO photo (id, chemin) VALUES (1, 'nouveaux-batiments-espaces-verts.jpg');
+
 -- Insérer bien
 INSERT INTO bien (id, id_proprietaire, id_ville, id_type_bien, id_type_chauffage, id_type_eau_chaude, num_rue, nom_rue, longitude, latitude, etage, num_appartement, date_creation, classification_taille, surface_habitable, description, photos) 
-VALUES (1, 2, 2, 1, 1, 1, 12, 'Rue Jean Souvraz', 2.8333, 50.4333, 1, 12, DATE('2024-05-08'), 'T1', 30, 'Appartement T1', array[]::integer[]);
+VALUES (1, 2, 2, 1, 1, 1, 12, 'Rue Jean Souvraz', 2.8333, 50.4333, 1, 12, DATE('2024-05-08'), 'T1', 30, 'Appartement T1', array[1]);
 
 -- Insérer baux
 INSERT INTO bail (id, id_locataire, id_proprietaire, id_bien, date_debut, date_fin, nombre_cle)
