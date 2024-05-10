@@ -7,9 +7,7 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 @ApiTags("Properties")
 @ApiBearerAuth()
-@Controller('properties')
-@ApiTags('Properties')
-@ApiBearerAuth()
+@Controller('biens')
 export class PropertiesController {
   constructor(private readonly propertiesService: PropertiesService) {}
 
@@ -25,8 +23,9 @@ export class PropertiesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.propertiesService.findOne(+id);
+  @ApiOperation({ summary: 'Get one property by id' })
+  async findOne(@Param('id') id: string) {
+    return await this.propertiesService.findOne(+id);
   }
 
   @Patch(':id')

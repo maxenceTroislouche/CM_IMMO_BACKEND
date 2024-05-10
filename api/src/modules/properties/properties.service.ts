@@ -1,12 +1,14 @@
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreatePropertyDto } from './dto/create-property.dto';
 import { UpdatePropertyDto } from './dto/update-property.dto';
 import { Property } from './entities/property.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, ReturningStatementNotSupportedError } from 'typeorm';
+import { Repository } from 'typeorm';
 import { FindAllPropertiesDto } from './dto/property-findall.dto';
 import { Photo } from './entities/photo.entity';
 import { Client } from 'minio';
+import { Review } from '../reviews/entities/review.entity';
+import { FindOnePropertyDto } from './dto/property-findone.dto';
 
 @Injectable()
 export class PropertiesService {
@@ -15,12 +17,6 @@ export class PropertiesService {
 
   @InjectRepository(Photo)
   private photosRepository: Repository<Photo>;
-
-  private readonly logger: Logger;
-
-  constructor() {
-    this.logger = new Logger(PropertiesService.name);
-  }
 
   create(createPropertyDto: CreatePropertyDto) {
     return 'WIP';
@@ -47,8 +43,10 @@ export class PropertiesService {
 
     // TODO: Attention l'url utilisé le endpoint est utilisé pour signer l'url,
     //  Donc si on remplace le endpoint par l'ip ou le dns name on aura une échec de signature incorrecte !
-    let url = await minioClient.presignedGetObject('immotep-files', filename, 60*60);
-    return url;
+    // let url = await minioClient.presignedGetObject('immotep-files', filename, 60*60);
+    // return url;
+  
+    return `http://192.168.1.5:9000/immotep-files/${filename}`;
   }
 
   async findAll() {
@@ -75,8 +73,50 @@ export class PropertiesService {
     return returnArray;
   }
 
-  findOne(id: number) {
-    return this.propertiesRepository.findOneBy({id:id});
+  async findOne(id: number) {
+    let property = await this.propertiesRepository.findOne({
+      where: {id: id},
+      relations: ['propertyType', 'contracts', 'contracts.owner', 'contracts.renter', 'contracts.reviews', 'city', 'rooms'],
+    });
+
+    let contracts = [];
+    for (let contract of property.contracts) {
+      contracts.push({
+        beginDate: contract.beginDate,
+        endDate: contract.endDate,
+        ownerLastName: contract.owner.lastname,
+        ownerFirstName: contract.owner.firstname,
+      });
+    }
+
+    let photos = [];
+    for (let photo of property.photos) {
+      let photoFilename = await this.getPhotoFilenameFromId(parseInt(photo));
+      let photoUrl = await this.getDynamicPhotoUrlFromFilename(photoFilename);
+      photos.push(photoUrl);
+    }
+
+    // TODO: Ajouter les photos + nombre de pièces
+    let propertyDto = new FindOnePropertyDto();
+    propertyDto.id = property.id;
+    propertyDto.propertyType = property.propertyType.lib;
+    propertyDto.city = property.city.name;
+    propertyDto.postalCode = property.city.postalCode;
+    propertyDto.progress = property.contracts.at(-1).reviews.at(-1).progress;
+    propertyDto.reviewId = property.contracts.at(-1).reviews.at(-1).id;
+    propertyDto.isStartingReview = property.contracts.at(-1).reviews.at(-1).isStartingReview;
+    propertyDto.contractId = property.contracts.at(-1).id;
+    propertyDto.numberOfRooms = property.rooms.length;
+    propertyDto.streetNumber = property.streetNumber;
+    propertyDto.streetName = property.streetName;
+    propertyDto.floor = property.floor;
+    propertyDto.flatNumber = property.flatNumber;
+    propertyDto.longitude = property.longitude;
+    propertyDto.latitude = property.latitude;
+    propertyDto.description = property.description;
+    propertyDto.contracts = contracts;
+    propertyDto.photos = photos;
+    return propertyDto;
   }
 
   update(id: number, updatePropertyDto: UpdatePropertyDto) {

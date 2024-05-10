@@ -1,6 +1,7 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Contract } from "./contract.entity";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Contract } from "../../properties/entities/contract.entity";
 import { EstateAgent } from "src/modules/estateAgents/entities/estateAgent.entity";
+import { Minute } from "./minute.entity";
 
 @Entity('etat_des_lieux')
 export class Review {
@@ -23,4 +24,7 @@ export class Review {
 
     @Column({ name: 'avancement' })
     progress: number;
+
+    @OneToMany(() => Minute, minute => minute.review, { onDelete: 'CASCADE' })
+    minutes: Minute[];
 }

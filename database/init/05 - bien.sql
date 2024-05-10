@@ -38,3 +38,13 @@ VALUES (1, 1, 2, 1, DATE('2024-04-08'), DATE('2024-05-08'), 2);
 -- Insérer etat des lieux
 INSERT INTO etat_des_lieux (id, id_bail, id_agent, est_entrant, date_realisation, avancement)
 VALUES (1, 1, 1, TRUE, DATE('2024-04-08'), 33);
+
+-- Insérer type piece
+INSERT INTO type_piece (id, lib) VALUES (1, 'LOGEMENT');
+
+-- Insérer fonction piece
+INSERT INTO fonction_piece (id, lib) VALUES (1, 'KOUISINE');
+
+-- Insérer piece
+INSERT INTO piece (id, id_bien, id_type_piece, id_fonction_piece, numero, description, surface)
+VALUES (1, 1, 1, 1, 1, 'Cuisine', 10);

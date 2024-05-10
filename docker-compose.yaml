@@ -36,6 +36,7 @@ services:
   #   restart: unless-stopped
   #   networks:
   #     - immotep-network
+  
   immotep-object-storage:
     image: minio/minio:latest
     container_name: immotep-object-storage

@@ -1,4 +1,4 @@
-import { Review } from 'src/modules/properties/entities/review.entity';
+import { Review } from 'src/modules/reviews/entities/review.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('agent')

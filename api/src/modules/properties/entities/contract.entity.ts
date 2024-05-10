@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Person } from "./person.entity";
 import { Property } from "./property.entity";
-import { Review } from "./review.entity";
+import { Review } from "../../reviews/entities/review.entity";
 
 @Entity('bail')
 export class Contract {

@@ -6,61 +6,62 @@ import { HeatingType } from "./heating-type.entity";
 import { WaterHeatingType } from "./water-heating-type.entity";
 import { Photo } from "./photo.entity";
 import { Contract } from "./contract.entity";
+import { Room } from "./room.entity";
 
 @Entity('bien')
 export class Property {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ name: 'num_rue'})
+    @Column({ name: 'num_rue' })
     streetNumber: number;
 
-    @Column({ name: 'nom_rue'})
+    @Column({ name: 'nom_rue' })
     streetName: string;
 
-    @Column({ name: 'longitude'})
+    @Column({ name: 'longitude', type: "double precision" })
     longitude: number;
 
-    @Column({ name: 'latitude'})
+    @Column({ name: 'latitude', type: "double precision" })
     latitude: number;
 
-    @Column({ name: 'etage'})
+    @Column({ name: 'etage' })
     floor: number;
 
-    @Column({ name: 'num_appartement'})
+    @Column({ name: 'num_appartement' })
     flatNumber: number;
 
-    @Column({ name: 'date_creation'})
+    @Column({ name: 'date_creation' })
     creationDate: Date;
 
-    @Column({ name: 'classification_taille'})
+    @Column({ name: 'classification_taille' })
     classification: string;
 
-    @Column({ name: 'surface_habitable'})
+    @Column({ name: 'surface_habitable' })
     livingArea: number;
 
-    @Column({ name: 'description'})
+    @Column({ name: 'description' })
     description: string;
 
     // Relations
     @ManyToOne(() => Person, person => person.properties, { onDelete: 'CASCADE' })
-    @JoinColumn({ name: 'id_proprietaire'})
+    @JoinColumn({ name: 'id_proprietaire' })
     owner: Person;
 
     @ManyToOne(() => City, city => city.properties, { onDelete: 'CASCADE' })
-    @JoinColumn({ name: 'id_ville'})
+    @JoinColumn({ name: 'id_ville' })
     city: City;
 
     @ManyToOne(() => PropertyType, propertyType => propertyType.properties, { onDelete: 'CASCADE' })
-    @JoinColumn({ name: 'id_type_bien'})
+    @JoinColumn({ name: 'id_type_bien' })
     propertyType: PropertyType;
 
     @ManyToOne(() => HeatingType, heatingType => heatingType.properties, { onDelete: 'CASCADE' })
-    @JoinColumn({ name: 'id_type_chauffage'})
+    @JoinColumn({ name: 'id_type_chauffage' })
     heatingType: HeatingType;
 
     @ManyToOne(() => WaterHeatingType, waterHeatingType => waterHeatingType.properties, { onDelete: 'CASCADE' })
-    @JoinColumn({ name: 'id_type_eau_chaude'})
+    @JoinColumn({ name: 'id_type_eau_chaude' })
     waterHeatingType: WaterHeatingType;
 
     @Column({ name: 'photos', array: true, type: 'text', nullable: true })
@@ -69,4 +70,7 @@ export class Property {
 
     @OneToMany(() => Contract, contract => contract.property, { onDelete: 'CASCADE' })
     contracts: Contract[];
+
+    @OneToMany(() => Room, room => room.property, { onDelete: 'CASCADE' })
+    rooms: Room[];
 }

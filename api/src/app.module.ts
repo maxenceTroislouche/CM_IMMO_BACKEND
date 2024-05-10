@@ -8,6 +8,7 @@ import { JwtService } from '@nestjs/jwt';
 import { typeOrmConfigAsync } from './config/typeorm.config';
 import { AgentsModule } from './modules/estateAgents/estateAgents.module';
 import { PropertiesModule } from './modules/properties/properties.module';
+import { ReviewsModule } from './modules/reviews/reviews.module';
 
 @Module({
   providers: [{
@@ -20,7 +21,8 @@ import { PropertiesModule } from './modules/properties/properties.module';
     TypeOrmModule.forRootAsync(typeOrmConfigAsync),
     AuthModule,
     AgentsModule,
-    PropertiesModule
+    PropertiesModule,
+    ReviewsModule,
   ],
 })
 export class AppModule {}
