@@ -2,24 +2,23 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Inventory } from './entities/inventory.entity';
 import { Repository } from 'typeorm';
+import { UpdateInventoryDto } from './dto/update-inventory.dto';
 
 @Injectable()
 export class InventoriesService {
     @InjectRepository(Inventory)
-    private reviewsRepository: Repository<Inventory>;
+    private inventoriesRepository: Repository<Inventory>;
 
     async findOne(id: number) {
-        let review = await this.reviewsRepository.findOne({
+        let review = await this.inventoriesRepository.findOne({
             where: {id: id},
             relations: ['contract', 'contract.property', 'contract.property.rooms', 'minutes', 'minutes.element', 'minutes.element.elementType', 'minutes.element.room'],
         });
         return review;
     }
 
-    async update(id: number, updateInventoryDto: UpdateInventoriesDto) {
+    async update(id: number, updateInventoryDto: UpdateInventoryDto) {
         let inventory = new Inventory();
-        inventory.username = updateInventoryDto.username;
-        inventory.password = UpdateReviewsDto.password;
-        return this.agentRepository.update(id,agent);
+        return this.inventoriesRepository.update(id,inventory);
       }
 }

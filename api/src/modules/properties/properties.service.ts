@@ -4,10 +4,10 @@ import { UpdatePropertyDto } from './dto/update-property.dto';
 import { Property } from './entities/property.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { FindAllPropertiesDto } from './dto/property-findall.dto';
+import { FindAllPropertiesDto } from './dto/findall-property.dto';
 import { Photo } from './entities/photo.entity';
 import { Client } from 'minio';
-import { FindOnePropertyDto } from './dto/property-findone.dto';
+import { FindOnePropertyDto } from './dto/findone-property.dto';
 
 @Injectable()
 export class PropertiesService {
@@ -66,7 +66,7 @@ export class PropertiesService {
       property_obj.prenomProprietaire = property.owner.firstname;
       property_obj.typeBien = property.propertyType.lib;
       property_obj.photos = photosUrls;
-      property_obj.pourcentageAvancement = property.contracts.at(-1).reviews.at(-1).progress;
+      property_obj.pourcentageAvancement = property.contracts.at(-1).inventories.at(-1).progress;
       returnArray.push(property_obj);
     }
     return returnArray;
@@ -101,9 +101,9 @@ export class PropertiesService {
     propertyDto.propertyType = property.propertyType.lib;
     propertyDto.city = property.city.name;
     propertyDto.postalCode = property.city.postalCode;
-    propertyDto.progress = property.contracts.at(-1).reviews.at(-1).progress;
-    propertyDto.reviewId = property.contracts.at(-1).reviews.at(-1).id;
-    propertyDto.isStartingReview = property.contracts.at(-1).reviews.at(-1).isStartingReview;
+    propertyDto.progress = property.contracts.at(-1).inventories.at(-1).progress;
+    propertyDto.reviewId = property.contracts.at(-1).inventories.at(-1).id;
+    propertyDto.isStartingReview = property.contracts.at(-1).inventories.at(-1).isStartingInventory;
     propertyDto.contractId = property.contracts.at(-1).id;
     propertyDto.numberOfRooms = property.rooms.length;
     propertyDto.streetNumber = property.streetNumber;

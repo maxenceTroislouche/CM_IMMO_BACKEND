@@ -1,4 +1,4 @@
-import { Review } from 'src/modules/reviews/entities/review.entity';
+import { Inventory } from 'src/modules/inventories/entities/inventory.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('agent')
@@ -12,6 +12,6 @@ export class EstateAgent {
   @Column({ name: 'mot_de_passe' })
   password: string;
 
-  @OneToMany(() => Review, review => review.estateAgent)
-  reviews: Review[];
+  @OneToMany(() => Inventory, inventory => inventory.estateAgent)
+  inventories: Inventory[];
 }

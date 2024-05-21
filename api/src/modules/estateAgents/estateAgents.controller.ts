@@ -10,8 +10,6 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 export class EstateAgentsController {
   constructor(private readonly agentsService: EstateAgentsService) {}
 
-  //TODO : Remove some of this endpoints
-
   @Post()
   @ApiOperation({ summary: 'Create an estate agent' })
   @HttpCode(HttpStatus.OK)
@@ -23,18 +21,6 @@ export class EstateAgentsController {
   @ApiOperation({ summary: 'Get all estate agents' })
   findAll() {
     return this.agentsService.findAll();
-  }
-
-  @Get('/id/:id')
-  @ApiOperation({ summary: 'Get an estate agent with the corresponding ID' })
-  findOneById(@Param('id') id: number) {
-    return this.agentsService.findOneById(id);
-  }
-
-  @Get('/username/:username')
-  @ApiOperation({ summary: 'Get an estate agent with the corresponding username' })
-  findOneByUsername(@Param('username') username: string) {
-    return this.agentsService.findOneByUsername(username);
   }
 
   @Patch(':id')

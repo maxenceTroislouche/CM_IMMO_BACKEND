@@ -8,11 +8,11 @@ export class Inventory {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(() => Contract, contract => contract.reviews, { onDelete: 'CASCADE' })
+    @ManyToOne(() => Contract, contract => contract.inventories, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'id_bail' })
     contract: Contract;
 
-    @ManyToOne(() => EstateAgent, estateAgent => estateAgent.reviews, { onDelete: 'CASCADE' })
+    @ManyToOne(() => EstateAgent, estateAgent => estateAgent.inventories, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'id_agent' })
     estateAgent: EstateAgent;
 
@@ -27,4 +27,5 @@ export class Inventory {
 
     @OneToMany(() => Minute, minute => minute.review, { onDelete: 'CASCADE' })
     minutes: Minute[];
+
 }

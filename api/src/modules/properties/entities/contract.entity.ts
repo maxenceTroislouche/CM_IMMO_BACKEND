@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Person } from "./person.entity";
 import { Property } from "./property.entity";
-import { Review } from "../../inventories/entities/inventory.entity";
+import { Inventory } from "../../inventories/entities/inventory.entity";
 
 @Entity('bail')
 export class Contract {
@@ -29,6 +29,6 @@ export class Contract {
     @Column({ name: 'nombre_cle'})
     numberOfKeys: number;
 
-    @OneToMany(() => Review, review => review.contract, { onDelete: 'CASCADE' })
-    reviews: Review[];
+    @OneToMany(() => Inventory, inventory => inventory.contract, { onDelete: 'CASCADE' })
+    inventories: Inventory[];
 }

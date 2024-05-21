@@ -6,6 +6,7 @@ import { EstateAgent } from './entities/estateAgent.entity';
 import { Repository } from 'typeorm';
 import { AuthService } from '../auth/auth.service';
 import { Public } from '../auth/decorators/public.decorator';
+import { FindAllEstateAgentDto } from './dto/findall-estateAgent.dto';
 
 @Injectable()
 export class EstateAgentsService {
@@ -21,8 +22,16 @@ export class EstateAgentsService {
     return this.agentRepository.insert(agent);
   }
 
-  findAll() {
-    return this.agentRepository.find();
+  async findAll() {
+    let estateAgents = await this.agentRepository.find();
+    let returnArray = [];
+    for (let agent of estateAgents) {
+      let agentDto = new FindAllEstateAgentDto();
+      agentDto.username = agent.username;
+
+      returnArray.push(agentDto);
+    }
+    return returnArray;
   }
 
   findOneById(id: number) {
