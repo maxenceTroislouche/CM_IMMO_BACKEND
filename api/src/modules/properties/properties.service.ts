@@ -7,7 +7,6 @@ import { Repository } from 'typeorm';
 import { FindAllPropertiesDto } from './dto/property-findall.dto';
 import { Photo } from './entities/photo.entity';
 import { Client } from 'minio';
-import { Review } from '../reviews/entities/review.entity';
 import { FindOnePropertyDto } from './dto/property-findone.dto';
 
 @Injectable()

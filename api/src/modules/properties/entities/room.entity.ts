@@ -2,7 +2,7 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColum
 import { Property } from "./property.entity";
 import { RoomType } from "./room-type.entity";
 import { RoomRole } from "./room-role.entity";
-import { Element } from "src/modules/reviews/entities/element.entity";
+import { Element } from "src/modules/inventories/entities/element.entity";
 
 
 @Entity('piece')

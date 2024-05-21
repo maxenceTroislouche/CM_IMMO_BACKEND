@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { ReviewsController } from './reviews.controller';
-import { ReviewsService } from './reviews.service';
+import { InventoriesController } from './inventories.controller';
+import { InventoriesService } from './inventories.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Property } from '../properties/entities/property.entity';
 import { City } from '../properties/entities/city.entity';
@@ -11,7 +11,7 @@ import { Photo } from '../properties/entities/photo.entity';
 import { Person } from '../properties/entities/person.entity';
 import { PersonType } from '../properties/entities/person-type.entity';
 import { Contract } from '../properties/entities/contract.entity';
-import { Review } from './entities/review.entity';
+import { Inventory } from './entities/inventory.entity';
 import { EstateAgent } from '../estateAgents/entities/estateAgent.entity';
 import { Room } from '../properties/entities/room.entity';
 import { RoomType } from '../properties/entities/room-type.entity';
@@ -21,9 +21,9 @@ import { Minute } from './entities/minute.entity';
 import { Element } from './entities/element.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Property, City, PropertyType, HeatingType, WaterHeatingType, Photo, Person, PersonType, Contract, Review, EstateAgent, Room, RoomType, RoomRole, Element, ElementType, Minute])],
-  controllers: [ReviewsController],
-  providers: [ReviewsService],
-  exports: [ReviewsService],
+  imports: [TypeOrmModule.forFeature([Property, City, PropertyType, HeatingType, WaterHeatingType, Photo, Person, PersonType, Contract, Inventory, EstateAgent, Room, RoomType, RoomRole, Element, ElementType, Minute])],
+  controllers: [InventoriesController],
+  providers: [InventoriesService],
+  exports: [InventoriesService],
 })
-export class ReviewsModule {}
+export class InventoriesModule {}

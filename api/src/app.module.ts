@@ -8,7 +8,7 @@ import { JwtService } from '@nestjs/jwt';
 import { typeOrmConfigAsync } from './config/typeorm.config';
 import { AgentsModule } from './modules/estateAgents/estateAgents.module';
 import { PropertiesModule } from './modules/properties/properties.module';
-import { ReviewsModule } from './modules/reviews/reviews.module';
+import { InventoriesModule } from './modules/inventories/inventories.module';
 
 @Module({
   providers: [{
@@ -22,7 +22,7 @@ import { ReviewsModule } from './modules/reviews/reviews.module';
     AuthModule,
     AgentsModule,
     PropertiesModule,
-    ReviewsModule,
+    InventoriesModule,
   ],
 })
 export class AppModule {}

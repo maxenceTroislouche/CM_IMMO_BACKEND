@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsArray, IsNumber, IsString } from "class-validator";
 
-export class FindOneReviewDto {
+export class FindOneInventoryDto {
     @ApiProperty()
     @IsNumber()
     id: number;
@@ -11,10 +11,10 @@ export class FindOneReviewDto {
     propertyId: number;
 
     @ApiProperty()
-    rooms: FindOneReviewRoomDto[];
+    rooms: FindOneInventoryRoomDto[];
 }
 
-export class FindOneReviewRoomDto {
+export class FindOneInventoryRoomDto {
     @ApiProperty()
     @IsNumber()
     id: number;
@@ -41,10 +41,10 @@ export class FindOneReviewRoomDto {
 
     @ApiProperty()
     @IsArray()
-    elements: FindOneReviewElementDto[];
+    elements: FindOneInventoryElementDto[];
 }
 
-export class FindOneReviewElementDto {
+export class FindOneInventoryElementDto {
     @ApiProperty()
     @IsNumber()
     id: number;

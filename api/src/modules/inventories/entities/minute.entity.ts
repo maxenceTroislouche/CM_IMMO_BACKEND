@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Element } from "./element.entity";
-import { Review } from "./review.entity";
+import { Inventory } from "./inventory.entity";
 
 @Entity('minute')
 export class Minute {
@@ -11,9 +11,9 @@ export class Minute {
     @JoinColumn({ name: 'id_element' })
     element: Element;
 
-    @ManyToOne(() => Review, review => review.minutes, { onDelete: 'CASCADE' })
+    @ManyToOne(() => Inventory, review => review.minutes, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'id_edl' })
-    review: Review;
+    review: Inventory;
 
     @Column({ name: 'photos', array: true, type: 'text', nullable: true })
     photos: number[];

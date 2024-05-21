@@ -4,7 +4,7 @@ import { EstateAgent } from "src/modules/estateAgents/entities/estateAgent.entit
 import { Minute } from "./minute.entity";
 
 @Entity('etat_des_lieux')
-export class Review {
+export class Inventory {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -17,7 +17,7 @@ export class Review {
     estateAgent: EstateAgent;
 
     @Column({ name: 'est_entrant'})
-    isStartingReview: boolean;
+    isStartingInventory: boolean;
 
     @Column({ name: 'date_realisation'})
     date: Date;
