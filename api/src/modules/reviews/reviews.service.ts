@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Review } from './entities/review.entity';
 import { Repository } from 'typeorm';
 import { FindOneReviewDto } from './dto/review-findone.dto';
+import { UpdateReviewsDto } from './dto/review-findone.dto';
 
 @Injectable()
 export class ReviewsService {
@@ -18,4 +19,11 @@ export class ReviewsService {
         let findOneReviewDto = new FindOneReviewDto();
         return review;
     }
+
+    async update(id: number, updateReviewDto: UpdateReviewsDto) {
+        let review = new Review();
+        review.username = UpdateReviewsDto.username;
+        review.password = UpdateReviewsDto.password;
+        return this.agentRepository.update(id,agent);
+      }
 }
