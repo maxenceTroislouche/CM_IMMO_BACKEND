@@ -1,5 +1,8 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { FindOneInventoryDto } from "./create-inventory.dto";
+import { ApiProperty } from "@nestjs/swagger";
+import { IsNumber } from "class-validator";
 
-export class UpdateInventoryDto extends PartialType(FindOneInventoryDto) {
+export class UpdateInventoryDto{
+    @ApiProperty()
+    @IsNumber()
+    progress: number;
 }

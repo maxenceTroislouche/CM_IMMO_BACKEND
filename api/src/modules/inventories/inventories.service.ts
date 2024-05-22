@@ -6,19 +6,28 @@ import { UpdateInventoryDto } from './dto/update-inventory.dto';
 
 @Injectable()
 export class InventoriesService {
-    @InjectRepository(Inventory)
-    private inventoriesRepository: Repository<Inventory>;
+  @InjectRepository(Inventory)
+  private inventoriesRepository: Repository<Inventory>;
 
-    async findOne(id: number) {
-        let review = await this.inventoriesRepository.findOne({
-            where: {id: id},
-            relations: ['contract', 'contract.property', 'contract.property.rooms', 'minutes', 'minutes.element', 'minutes.element.elementType', 'minutes.element.room'],
-        });
-        return review;
-    }
+  async findOne(id: number) {
+    let review = await this.inventoriesRepository.findOne({
+      where: { id: id },
+      relations: [
+        'contract',
+        'contract.property',
+        'contract.property.rooms',
+        'minutes',
+        'minutes.element',
+        'minutes.element.elementType',
+        'minutes.element.room',
+      ],
+    });
+    return review;
+  }
 
-    async update(id: number, updateInventoryDto: UpdateInventoryDto) {
-        let inventory = new Inventory();
-        return this.inventoriesRepository.update(id,inventory);
-      }
+  async update(id: number, updateInventoryDto: UpdateInventoryDto) {
+    let inventory = new Inventory();
+    inventory.progress = updateInventoryDto.progress;
+    return this.inventoriesRepository.update(id, inventory);
+  }
 }

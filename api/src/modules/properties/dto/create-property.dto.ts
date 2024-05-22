@@ -1,35 +1,76 @@
-export class CreatePropertyDto {
+import { ApiProperty } from "@nestjs/swagger";
+import { IsArray, IsBoolean, IsNumber, IsString } from "class-validator";
 
-    ownerId:number;
+export class CreatePropertyDto{
+    @ApiProperty()
+    @IsNumber()
+    id: number;
 
-    cityId:number;
+    @ApiProperty()
+    @IsString()
+    propertyType: string;
 
-    propertyTypeId:number;
+    @ApiProperty()
+    @IsString()
+    city: string;
 
-    heatingTypeId:number;
+    @ApiProperty()
+    @IsNumber()
+    postalCode: number;
 
-    hotWaterTypeId:number;
+    @ApiProperty()
+    @IsNumber()
+    progress: number;
 
-    streetNumber:number;
+    @ApiProperty()
+    @IsNumber()
+    inventoryId: number;
 
-    streetName:string;
+    @ApiProperty()
+    @IsBoolean()
+    isStartingInventory: boolean;
 
-    longitude:number;
+    @ApiProperty()
+    @IsNumber()
+    contractId: number;
 
-    latitude:number;
+    @ApiProperty()
+    @IsNumber()
+    numberOfRooms: number;
 
-    floor:number;
+    @ApiProperty()
+    @IsNumber()
+    streetNumber: number;
 
-    flatNumber:number;
+    @ApiProperty()
+    @IsString()
+    streetName: string;
 
-    creationDate:number;
+    @ApiProperty()
+    @IsNumber()
+    floor: number;
 
-    classification:string;
+    @ApiProperty()
+    @IsNumber()
+    flatNumber: number;
+  
+    @ApiProperty()
+    @IsNumber()
+    longitude: number;
 
-    livingArea:number;
+    @ApiProperty()
+    @IsNumber()
+    latitude: number;
 
-    description:string;
-    
-    photos:string[];
+    @ApiProperty()
+    @IsString()
+    description: string;
 
+    @ApiProperty()
+    @IsArray()
+    contracts: any[];
+
+    @ApiProperty()
+    @IsArray()
+    photos: string[];
 }

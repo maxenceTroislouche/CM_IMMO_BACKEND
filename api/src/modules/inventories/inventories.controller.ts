@@ -1,20 +1,26 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { InventoriesService } from './inventories.service';
+import { UpdateInventoryDto } from './dto/update-inventory.dto';
 
-
-@ApiTags("Inventories")
+@ApiTags('Inventories')
 @ApiBearerAuth()
-@Controller('iof')
+@Controller('inventories')
 export class InventoriesController {
-    constructor(private readonly inventoriesService: InventoriesService) {}
+  constructor(private readonly inventoriesService: InventoriesService) {}
 
-    // GET /edl/:id
-    @Get(':id')
-    @ApiOperation({ summary: 'Get one property by id' })
-    async findOne(@Param('id') id: string) {
-        return await this.inventoriesService.findOne(+id);
-    }
+  @Get(':id')
+  @ApiOperation({ summary: 'Get one inventory by id' })
+  async findOne(@Param('id') id: string) {
+    return await this.inventoriesService.findOne(+id);
+  }
 
-    // PATCH /edl/:id
+  @Patch(':id')
+  @ApiOperation({ summary: 'Update the progress of an inventory' })
+  update(
+    @Param('id') id: number,
+    @Body() updateInventoryDto: UpdateInventoryDto,
+  ) {
+    return this.inventoriesService.update(id, updateInventoryDto);
+  }
 }

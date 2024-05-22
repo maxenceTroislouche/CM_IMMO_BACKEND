@@ -24,11 +24,11 @@ export class FindOnePropertyDto {
 
     @ApiProperty()
     @IsNumber()
-    reviewId: number;
+    inventoryId: number;
 
     @ApiProperty()
     @IsBoolean()
-    isStartingReview: boolean;
+    isStartingInventory: boolean;
 
     @ApiProperty()
     @IsNumber()

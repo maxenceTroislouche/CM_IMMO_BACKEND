@@ -21,7 +21,27 @@ import { Minute } from './entities/minute.entity';
 import { Element } from './entities/element.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Property, City, PropertyType, HeatingType, WaterHeatingType, Photo, Person, PersonType, Contract, Inventory, EstateAgent, Room, RoomType, RoomRole, Element, ElementType, Minute])],
+  imports: [
+    TypeOrmModule.forFeature([
+      Property,
+      City,
+      PropertyType,
+      HeatingType,
+      WaterHeatingType,
+      Photo,
+      Person,
+      PersonType,
+      Contract,
+      Inventory,
+      EstateAgent,
+      Room,
+      RoomType,
+      RoomRole,
+      Element,
+      ElementType,
+      Minute,
+    ]),
+  ],
   controllers: [InventoriesController],
   providers: [InventoriesService],
   exports: [InventoriesService],

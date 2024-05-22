@@ -49,7 +49,7 @@ export class PropertiesService {
   }
 
   async findAll() {
-    let properties = await this.propertiesRepository.find({ relations: ['owner', 'propertyType', 'contracts', 'contracts.owner', 'contracts.renter', 'contracts.reviews'] });
+    let properties = await this.propertiesRepository.find({ relations: ['owner', 'propertyType', 'contracts', 'contracts.owner', 'contracts.renter', 'contracts.inventories'] });
     let returnArray = [];
     for (let property of properties) {
       let photosUrls = [];
@@ -75,7 +75,7 @@ export class PropertiesService {
   async findOne(id: number) {
     let property = await this.propertiesRepository.findOne({
       where: {id: id},
-      relations: ['propertyType', 'contracts', 'contracts.owner', 'contracts.renter', 'contracts.reviews', 'city', 'rooms'],
+      relations: ['propertyType', 'contracts', 'contracts.owner', 'contracts.renter', 'contracts.inventories', 'city', 'rooms'],
     });
 
     let contracts = [];
@@ -102,8 +102,8 @@ export class PropertiesService {
     propertyDto.city = property.city.name;
     propertyDto.postalCode = property.city.postalCode;
     propertyDto.progress = property.contracts.at(-1).inventories.at(-1).progress;
-    propertyDto.reviewId = property.contracts.at(-1).inventories.at(-1).id;
-    propertyDto.isStartingReview = property.contracts.at(-1).inventories.at(-1).isStartingInventory;
+    propertyDto.inventoryId = property.contracts.at(-1).inventories.at(-1).id;
+    propertyDto.isStartingInventory = property.contracts.at(-1).inventories.at(-1).isStartingInventory;
     propertyDto.contractId = property.contracts.at(-1).id;
     propertyDto.numberOfRooms = property.rooms.length;
     propertyDto.streetNumber = property.streetNumber;
@@ -118,11 +118,4 @@ export class PropertiesService {
     return propertyDto;
   }
 
-  update(id: number, updatePropertyDto: UpdatePropertyDto) {
-    return `WIP`;
-  }
-
-  remove(id: number) {
-    return this.propertiesRepository.delete(id);
-  }
 }
