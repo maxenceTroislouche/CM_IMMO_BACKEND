@@ -18,7 +18,7 @@ export class Inventory {
 
     @Column({ name: 'est_entrant'})
     isStartingInventory: boolean;
-
+    
     @Column({ name: 'date_realisation'})
     date: Date;
 
