@@ -3,12 +3,12 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { AgentsModule } from '../estateAgents/estateAgents.module';
 import { JwtModule } from '@nestjs/jwt';
-import { JwtConfigAsync } from 'src/config/jwt.config';
+import { jwtConfigAsync } from 'src/config/jwt.config';
 
 @Module({
   imports: [
     AgentsModule,
-    JwtModule.registerAsync(JwtConfigAsync),
+    JwtModule.registerAsync(jwtConfigAsync),
   ],
   controllers: [AuthController],
   providers: [AuthService],
