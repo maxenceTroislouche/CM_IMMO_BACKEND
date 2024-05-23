@@ -24,7 +24,7 @@ export class Inventory {
 
     @Column({ name: 'avancement' })
     progress: number;
-
+    //test
     @OneToMany(() => Minute, minute => minute.review, { onDelete: 'CASCADE' })
     minutes: Minute[];
 
