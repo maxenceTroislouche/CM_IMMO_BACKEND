@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Element } from "./element.entity";
-import { Inventory } from "./inventory.entity";
+import { Element } from "../../inventories/entities/element.entity";
+import { Inventory } from "../../inventories/entities/inventory.entity";
 
 @Entity('minute')
 export class Minute {

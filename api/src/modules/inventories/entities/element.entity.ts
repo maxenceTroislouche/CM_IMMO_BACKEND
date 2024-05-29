@@ -1,7 +1,7 @@
 import { Room } from "src/modules/properties/entities/room.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { ElementType } from "./element-type.entity";
-import { Minute } from "./minute.entity";
+import { Minute } from "../../minutes/entities/minute.entity";
 
 @Entity('element')
 export class Element {

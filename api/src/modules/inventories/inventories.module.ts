@@ -17,7 +17,7 @@ import { Room } from '../properties/entities/room.entity';
 import { RoomType } from '../properties/entities/room-type.entity';
 import { RoomRole } from '../properties/entities/room-role.entity';
 import { ElementType } from './entities/element-type.entity';
-import { Minute } from './entities/minute.entity';
+import { Minute } from '../minutes/entities/minute.entity';
 import { Element } from './entities/element.entity';
 
 @Module({
