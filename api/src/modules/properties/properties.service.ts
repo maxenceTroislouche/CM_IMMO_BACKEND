@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { CreatePropertyDto } from './dto/create-property.dto';
 import { UpdatePropertyDto } from './dto/update-property.dto';
 import { Property } from './entities/property.entity';
@@ -33,20 +34,18 @@ export class PropertiesService {
 
   async getDynamicPhotoUrlFromFilename(filename: string) {
     let minioClient = new Client({
-      endPoint: 'immotep-object-storage',
-      port: 9000,
-      useSSL: false,
-      accessKey: 'qEektKwajFCsQQvwf8hD',
-      secretKey: 'C1PE6Jp3XbGm9W6S7vtsMpmViwxAheNujZZmaxB4',
+      endPoint: 'minio.taffin.ovh',
+      port: 443,
+      useSSL: true,
+      accessKey: 'mODvNLwCYcqJXNf4Lci1',
+      secretKey: '3YXQium7Hrmyqz1zS694t6gF4wgbe6ufO7DLABuf',
     });
 
-    // TODO: Attention l'url utilisé le endpoint est utilisé pour signer l'url,
-    //  Donc si on remplace le endpoint par l'ip ou le dns name on aura une échec de signature incorrecte !
-    // let url = await minioClient.presignedGetObject('immotep-files', filename, 60*60);
-    // return url;
+    let url = await minioClient.presignedGetObject('immotep-files', filename, 60*60);
+    return url;
   
-    return `http://192.168.1.5:9000/immotep-files/${filename}`;
-  }
+    // return `https://minio.taffin.ovh/immotep-files/${filename}`;
+  } 
 
   async findAll() {
     let properties = await this.propertiesRepository.find({ relations: ['owner', 'propertyType', 'contracts', 'contracts.owner', 'contracts.renter', 'contracts.inventories'] });
