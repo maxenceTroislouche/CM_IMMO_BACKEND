@@ -29,44 +29,36 @@ services:
     networks:
       - immotep-network
       
-  #cloudflared:
-  #   container_name: cloudflared2
-  #   image: cloudflare/cloudflared:latest
-  #   command: tunnel --no-autoupdate run --token eyJhIjoiNjFlNTIzNWJkNjgwZDFjM2FjOTM3ODAwYTc3NTdlNWEiLCJ0IjoiZTllNzUxZjAtNzQxOC00NmRkLWE2ZjMtZjg0ZmQ2ZGNlMWVjIiwicyI6Ik5EUm1ZakJoT1RndFlXUXhZaTAwTUdFekxXRTFPV1F0TWpneVpHUXpaVFZsWVdJeCJ9
-  #   restart: unless-stopped
-  #   networks:
-  #     - immotep-network
+  cloudflared:
+    container_name: ${CLOUDFLARED_CONTAINER_NAME}
+    image: ${CLOUDFLARED_IMAGE}
+    command: ${CLOUDFLARED_COMMAND}
+    restart: unless-stopped
+    networks:
+      - immotep-network
   
   immotep-object-storage:
-    image: minio/minio:latest
-    container_name: immotep-object-storage
+    image: ${OBJECT_STORAGE_IMAGE}
+    container_name: ${OBJECT_STORAGE_CONTAINER_NAME}
     ports:
-      - "9000:9000"
-      - "9001:9001"
+      - "${OBJECT_STORAGE_PORT_9000}:${OBJECT_STORAGE_PORT_9000}"
+      - "${OBJECT_STORAGE_PORT_9001}:${OBJECT_STORAGE_PORT_9001}"
     expose:
-      - 9000
-      - 9001
+      - ${OBJECT_STORAGE_PORT_9000}
+      - ${OBJECT_STORAGE_PORT_9001}
     environment:
-      MINIO_ACCESS_KEY: minioadmin
-      MINIO_SECRET_KEY: minioadminpassword
-      MINIO_MODE: single
-      MINIO_ROOT_USER: minioadmin
-      MINIO_ROOT_PASSWORD: minioadminpassword
-      MINIO_SERVER_URL: https://minio.taffin.ovh
-      MINIO_BROWSER_REDIRECT_URL: https://console.taffin.ovh
-      MINIO_OPTS: "-C /etc/minio --address :9000 --console-address :9001"
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+      MINIO_OPTS: ${MINIO_OPTS}
     volumes:
-      - immotep-object-storage-data:/data
-    command: server --console-address ":9001" /data
+      - ./immotep-object-storage:/data
+    command: server --console-address ":${OBJECT_STORAGE_PORT_9001}" /data
     networks:
       - immotep-network
 
 volumes:
   immotep-database-data:
     name : 'immotep-database-data'
-  immotep-object-storage-data:
-    name : 'immotep-object-storage-data'
-
 networks:
   immotep-network:
     name : 'immotep-network'
