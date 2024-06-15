@@ -9,6 +9,7 @@ import { typeOrmConfigAsync } from './config/typeorm.config';
 import { AgentsModule } from './modules/estateAgents/estateAgents.module';
 import { PropertiesModule } from './modules/properties/properties.module';
 import { InventoriesModule } from './modules/inventories/inventories.module';
+import { TestImageModule } from './modules/testimage/testimage.module';
 
 @Module({
   providers: [{
@@ -23,6 +24,7 @@ import { InventoriesModule } from './modules/inventories/inventories.module';
     AgentsModule,
     PropertiesModule,
     InventoriesModule,
+    TestImageModule,
   ],
 })
 export class AppModule {}
