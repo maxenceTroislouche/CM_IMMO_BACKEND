@@ -7,6 +7,7 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 export class TestImageController {
 
     @Post()
+    @ApiOperation({ summary: 'Upload files' })
     update(@Body() body:any, @UploadedFiles() files: any) {
         return {
             "body": body,
