@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TestImageController } from './testimage.controller';
 
-@Module({})
+@Module({controllers: [TestImageController]})
 export class TestImageModule {
-    controllers: [TestImageController]
+    
 }
