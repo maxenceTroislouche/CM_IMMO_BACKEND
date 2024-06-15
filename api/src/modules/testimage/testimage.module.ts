@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { TestImageController } from './test_image.controller';
+import { TestImageController } from './testimage.controller';
 
 @Module({})
 export class TestImageModule {
