@@ -1,7 +1,8 @@
+import { PartialType } from '@nestjs/mapped-types';
 import { ApiProperty } from "@nestjs/swagger";
 import { IsString, IsNumber, IsArray, IsOptional, IsInt } from "class-validator";
-import { PartialType } from '@nestjs/mapped-types';
-export class CreateMinuteDto {
+
+export class FindMinuteDto {
 
     @ApiProperty()
     @IsNumber()
@@ -26,6 +27,3 @@ export class CreateMinuteDto {
     @IsOptional()
     note?: number;
 }
-
-
-
