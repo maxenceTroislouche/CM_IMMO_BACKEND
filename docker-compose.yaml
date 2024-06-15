@@ -6,8 +6,6 @@ services:
     build: ./database
     env_file:
       - ./database/.env
-    volumes:
-      - /Users/flo/Documents/Compose/CM_IMMO_BACKEND/data:/var/lib/postgresql/data
     ports: 
       - 5432:5432
     networks:
