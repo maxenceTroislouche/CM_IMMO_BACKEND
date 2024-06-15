@@ -7,7 +7,7 @@ services:
     env_file:
       - ./database/.env
     volumes:
-      - immotep-database-data:/var/lib/postgresql/data
+      - /Users/flo/Documents/Compose/CM_IMMO_BACKEND/data:/var/lib/postgresql/data
     ports: 
       - 5432:5432
     networks:
@@ -22,7 +22,7 @@ services:
       - ./api/.env
     links:
       - database:database
-    depends_on :
+    depends_on:
       - database
     ports: 
       - 3000:3000
@@ -56,11 +56,8 @@ services:
     networks:
       - immotep-network
 
-volumes:
-  immotep-database-data:
-    name : 'immotep-database-data'
 networks:
   immotep-network:
-    name : 'immotep-network'
+    name: 'immotep-network'
     driver: bridge
     external: true
