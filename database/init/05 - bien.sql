@@ -38,6 +38,7 @@ INSERT INTO tiers (id, id_type_tiers, nom, prenom, date_de_naissance, numero_sec
 
 -- Insérer photo
 INSERT INTO photo (id, chemin) VALUES (1, 'nouveaux-batiments-espaces-verts.jpg');
+<<<<<<< HEAD
 INSERT INTO photo (id, chemin) VALUES (2, 'chambre-contemporaine-dans-un-appartement-en-noir-et-.jpg');
 INSERT INTO photo (id, chemin) VALUES (3, 'd13b8acc1444302ecc2d2563850b3af9.jpg');
 INSERT INTO photo (id, chemin) VALUES (4, 'chambre-appartement-t3.jpg');
@@ -63,6 +64,7 @@ INSERT INTO photo (id, chemin) VALUES (23, 'Une-cuisine-campagne-chic-blanche.jp
 INSERT INTO photo (id, chemin) VALUES (24, 'home-design.jpg');
 INSERT INTO photo (id, chemin) VALUES (25, 'le-salon-art-deco-d-un-studio-parisien-renove_5456900.jpeg');
 INSERT INTO photo (id, chemin) VALUES (26, 'ST1.jpg');
+
 -- Bug de con : postgresql perd le compte des id ...
 SELECT setval('photo_id_seq', (SELECT MAX(id) FROM photo));
 
@@ -82,6 +84,7 @@ VALUES (5, 8, 2, 1, 1, 1, 18, 'Rue Jean Jaurès', 2.8309, 50.4291, 1, 6, DATE('2
 -- Insérer baux
 INSERT INTO bail (id, id_locataire, id_proprietaire, id_bien, date_debut, date_fin, nombre_cle)
 VALUES (1, 1, 8, 1, DATE('2024-04-08'), DATE('2024-05-08'), 2);
+
 INSERT INTO bail (id, id_locataire, id_proprietaire, id_bien, date_debut, date_fin, nombre_cle)
 VALUES (2, 2, 8, 5, DATE('2024-01-11'), DATE('2024-12-12'), 2);
 
