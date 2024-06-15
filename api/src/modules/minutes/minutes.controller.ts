@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { MinutesService } from './minutes.service';
 import { CreateMinuteDto } from './dto/create-minute.dto';
 import { UpdateMinuteDto } from './dto/update-minute.dto';
+import { FindMinuteDto } from './dto/find-minute.dto';
 import { Minute } from './entities/minute.entity';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 
@@ -23,24 +24,24 @@ export class MinutesController {
     return this.minutesService.findAll();
   }
 
-  @Get(':id')
+  @Get(':id_edl/:id_element')
   @ApiOperation({ summary: 'Get a minute by his id' })
   findOne(
-    @Param(':id') id: number
+    @Param() findMinuteDto: FindMinuteDto
   ): Promise<Minute> {
-    return this.minutesService.findOne(id);
+    return this.minutesService.findOne(findMinuteDto);
   }
 
   @Patch(':id')
   @ApiOperation({ summary: 'Change a minute' })
-  update(@Param('id') id: string, @Body() updateMinuteDto: UpdateMinuteDto) {
-    return this.minutesService.update(+id, updateMinuteDto);
+  update(@Param() findMinuteDto: FindMinuteDto, @Body() updateMinuteDto: UpdateMinuteDto) {
+    return this.minutesService.update(findMinuteDto, updateMinuteDto);
   }
 
   @Delete(':id')
   @ApiOperation({ summary: 'Delete a minute' })
-  remove(@Param('id') id: string) {
-    return this.minutesService.remove(+id);
+  remove(@Param() findMinuteDto: FindMinuteDto) {
+    return this.minutesService.remove(findMinuteDto);
   }
 }
 

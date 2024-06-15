@@ -4,6 +4,7 @@ import { UpdateMinuteDto } from './dto/update-minute.dto';
 import { InjectRepository, } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Minute } from './entities/minute.entity';
+import { FindMinuteDto } from './dto/find-minute.dto';
 
 @Injectable()
 export class MinutesService {
@@ -21,24 +22,31 @@ export class MinutesService {
     return await this.minuteRepository.find();
   }
 
-  async findOne(id : number): Promise<Minute> {
-    const minute = await this.minuteRepository.findOne({ where: { id } });
+  async findOne(findMinuteDto: FindMinuteDto): Promise<Minute> {
+    const { id_edl, id_element } = findMinuteDto;
+    const minute = await this.minuteRepository.findOne({ where: { id_edl, id_element } });
     if (!minute) {
-      throw new NotFoundException(`Minute with id ${id} not found`);
+      throw new NotFoundException('Minute not found');
     }
     return minute;
   }
 
-  async update(id:number, updateMinuteDto: UpdateMinuteDto): Promise<Minute> {
-    await this.findOne(id);
+  async update(findMinuteDto: FindMinuteDto, updateMinuteDto: UpdateMinuteDto): Promise<Minute> {
+    /*await this.findOne(id);
     await this.minuteRepository.update({ id }, updateMinuteDto);
-    return this.findOne(id);
+    return this.findOne(id);*/
+
+    const minute = await this.findOne(findMinuteDto);
+        Object.assign(minute, updateMinuteDto);
+        return this.minuteRepository.save(minute);
   }
 
-  async remove(id : number): Promise<void> {
-    const result = await this.minuteRepository.delete({ id });
+  async remove(findMinuteDto: FindMinuteDto): Promise<void> {
+    /*const result = await this.minuteRepository.delete({ id });
     if (result.affected === 0) {
       throw new NotFoundException(`Minute with i ${id} not found`);
-    }
+    }*/
+      const minute = await this.findOne(findMinuteDto);
+      await this.minuteRepository.remove(minute);
   }
 }
