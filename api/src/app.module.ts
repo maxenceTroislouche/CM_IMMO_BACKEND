@@ -10,6 +10,7 @@ import { AgentsModule } from './modules/estateAgents/estateAgents.module';
 import { PropertiesModule } from './modules/properties/properties.module';
 import { InventoriesModule } from './modules/inventories/inventories.module';
 import { TestImageModule } from './modules/testimage/testimage.module';
+import { MinutesModule } from './modules/minutes/minutes.module';
 
 @Module({
   providers: [{
@@ -25,6 +26,7 @@ import { TestImageModule } from './modules/testimage/testimage.module';
     PropertiesModule,
     InventoriesModule,
     TestImageModule,
+    MinutesModule
   ],
 })
 export class AppModule {}

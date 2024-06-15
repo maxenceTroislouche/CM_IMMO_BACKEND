@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Contract } from "../../properties/entities/contract.entity";
 import { EstateAgent } from "src/modules/estateAgents/entities/estateAgent.entity";
-import { Minute } from "./minute.entity";
+import { Minute } from "../../minutes/entities/minute.entity";
 
 @Entity('etat_des_lieux')
 export class Inventory {

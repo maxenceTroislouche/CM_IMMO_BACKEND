@@ -1,11 +1,14 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Element } from "./element.entity";
-import { Inventory } from "./inventory.entity";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
+import { Element } from "../../inventories/entities/element.entity";
+import { Inventory } from "../../inventories/entities/inventory.entity";
 
 @Entity('minute')
 export class Minute {
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryColumn()
+    id_edl: number;
+
+    @PrimaryColumn()
+    id_element: number;
 
     @ManyToOne(() => Element, element => element.minutes, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'id_element' })
