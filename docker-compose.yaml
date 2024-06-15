@@ -29,13 +29,13 @@ services:
     networks:
       - immotep-network
       
-  cloudflared:
-    container_name: ${CLOUDFLARED_CONTAINER_NAME}
-    image: ${CLOUDFLARED_IMAGE}
-    command: ${CLOUDFLARED_COMMAND}
-    restart: unless-stopped
-    networks:
-      - immotep-network
+  # cloudflared:
+  #   container_name: ${CLOUDFLARED_CONTAINER_NAME}
+  #   image: ${CLOUDFLARED_IMAGE}
+  #   command: ${CLOUDFLARED_COMMAND}
+  #   restart: unless-stopped
+  #   networks:
+  #     - immotep-network
   
   immotep-object-storage:
     image: ${OBJECT_STORAGE_IMAGE}
