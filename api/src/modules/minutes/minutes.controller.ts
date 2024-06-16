@@ -32,10 +32,10 @@ export class MinutesController {
     return this.minutesService.findOne(findMinuteDto);
   }
 
-  @Patch(':id')
+  @Patch()
   @ApiOperation({ summary: 'Change a minute' })
-  update(@Param() findMinuteDto: FindMinuteDto, @Body() updateMinuteDto: UpdateMinuteDto) {
-    return this.minutesService.update(findMinuteDto, updateMinuteDto);
+  update(@Body() updateMinuteDto: UpdateMinuteDto) {
+    return this.minutesService.update(updateMinuteDto);
   }
 
   @Delete(':id')

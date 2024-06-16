@@ -40,13 +40,11 @@ CREATE TABLE agent (
     mot_de_passe VARCHAR(1000) NOT NULL,
     CONSTRAINT agent_pk PRIMARY KEY (id)
 );
--- Table "abstraite" n'étant pas censée être utilisée directement
-CREATE TABLE fichier (
-    id SERIAL NOT NULL,
-    chemin VARCHAR(100) NOT NULL,
-    CONSTRAINT fichier_pk PRIMARY KEY (id)
+CREATE TABLE photo (
+    id SERIAL PRIMARY KEY,
+    chemin VARCHAR(100) NOT NULL
 );
-CREATE TABLE photo () INHERITS (fichier);
+
 CREATE TABLE tiers (
     id SERIAL NOT NULL,
     id_type_tiers INT NOT NULL,
@@ -148,20 +146,31 @@ CREATE TABLE minute (
     CONSTRAINT minute_fk1 FOREIGN KEY (id_edl) REFERENCES etat_des_lieux(id),
     CONSTRAINT minute_fk2 FOREIGN KEY (id_element) REFERENCES element(id)
 );
-CREATE TABLE signature (
+
+CREATE TABLE signature_agent (
+    id SERIAL PRIMARY KEY,
+    chemin VARCHAR(100) NOT NULL,
     id_edl INT NOT NULL,
     date_signature DATE NOT NULL,
-    CONSTRAINT signature_fk1 FOREIGN KEY (id_edl) REFERENCES etat_des_lieux(id)
-) INHERITS (fichier);
-CREATE TABLE signature_agent (
     id_agent INT NOT NULL,
+    CONSTRAINT signature_agent_fk2 FOREIGN KEY (id_edl) REFERENCES etat_des_lieux(id),
     CONSTRAINT signature_agent_fk1 FOREIGN KEY (id_agent) REFERENCES agent(id)
-) INHERITS (signature);
+);
 CREATE TABLE signature_locataire (
+    id SERIAL PRIMARY KEY,
+    chemin VARCHAR(100) NOT NULL,
+    id_edl INT NOT NULL,
+    date_signature DATE NOT NULL,    
     id_locataire INT NOT NULL,
+    CONSTRAINT signature_locataire_fk2 FOREIGN KEY (id_edl) REFERENCES etat_des_lieux(id),
     CONSTRAINT signature_locataire_fk1 FOREIGN KEY (id_locataire) REFERENCES tiers(id)
 );
 CREATE TABLE signature_proprietaire (
+    id SERIAL PRIMARY KEY,
+    chemin VARCHAR(100) NOT NULL,
+    id_edl INT NOT NULL,
+    date_signature DATE NOT NULL,     
     id_proprietaire INT NOT NULL,
+    CONSTRAINT signature_proprietaire_fk2 FOREIGN KEY (id_edl) REFERENCES etat_des_lieux(id),
     CONSTRAINT signature_proprietaire_fk1 FOREIGN KEY (id_proprietaire) REFERENCES tiers(id)
 );

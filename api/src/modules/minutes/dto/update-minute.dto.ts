@@ -1,4 +1,24 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateMinuteDto } from './create-minute.dto';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsArray, IsNumber, IsString } from 'class-validator';
 
-export class UpdateMinuteDto extends PartialType(CreateMinuteDto) {}
+export class UpdateMinuteDto {
+    @ApiProperty()
+    @IsNumber()
+    id_edl: number;
+
+    @ApiProperty()
+    @IsNumber()
+    id_element: number;
+    
+    @ApiProperty()
+    @IsArray()
+    photos: string[];
+
+    @ApiProperty()
+    @IsString()
+    remark: string;
+    
+    @ApiProperty()
+    @IsNumber()
+    grade: number;
+}

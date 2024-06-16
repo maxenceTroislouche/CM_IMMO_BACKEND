@@ -3,3 +3,4 @@
 ./database/.env
 ./data/script/.venv/*
 .idea
+./immotep-object-storage

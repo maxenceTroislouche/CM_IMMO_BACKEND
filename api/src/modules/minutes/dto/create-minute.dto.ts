@@ -1,8 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsString, IsNumber, IsArray, IsOptional, IsInt } from "class-validator";
-import { PartialType } from '@nestjs/mapped-types';
-export class CreateMinuteDto {
 
+export class CreateMinuteDto {
     @ApiProperty()
     @IsNumber()
     id_edl: number;
