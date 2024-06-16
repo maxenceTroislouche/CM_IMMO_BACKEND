@@ -18,13 +18,13 @@ export class Inventory {
 
     @Column({ name: 'est_entrant'})
     isStartingInventory: boolean;
-    
+
     @Column({ name: 'date_realisation'})
     date: Date;
 
     @Column({ name: 'avancement' })
     progress: number;
-    
+
     @OneToMany(() => Minute, minute => minute.review, { onDelete: 'CASCADE' })
     minutes: Minute[];
 

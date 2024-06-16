@@ -17,7 +17,7 @@ export default class JwtConfig {
   }
 }
 
-export const jwtConfigAsync: JwtModuleAsyncOptions = {
+export const JwtConfigAsync: JwtModuleAsyncOptions = {
   inject: [ConfigService],
   useFactory: async (configService: ConfigService): Promise<JwtModuleOptions> =>
     JwtConfig.getJwtConfig(configService),
