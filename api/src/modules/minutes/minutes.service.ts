@@ -59,12 +59,15 @@ export class MinutesService {
       const uuid = uuidv4();
       const filepath = `/app/${uuid}`;
       console.log(filepath);
+      const filebuffer = Buffer.from(photoB64, 'base64');
+
       // Copier le contenu de photoB64 dans un fichier
-      writeFileSync(filepath, photoB64);
+      writeFileSync(filepath, filebuffer);
 
       // Ajouter le fichier dans le bucket minio
       await minioClient.fPutObject('immotep-files', uuid, filepath);
 
+      // On essaie de supprimer le fichier !
       try {
         unlinkSync(filepath);
       } catch {
@@ -73,14 +76,9 @@ export class MinutesService {
 
       // Ajouter dans la table photo une nouvelle entrée avec le nom du fichier
       const photo = this.photoRepository.create({
-        id: await this.photoRepository.maximum('id') + 1,
         path: uuid
       });
-      console.log(photo);
-      console.log(`max id: ${await this.photoRepository.maximum('id')}`)
       await this.photoRepository.save(photo);
-      console.log("ajouté")
-
       photoIds.push(photo.id);
     }
 
