@@ -19,6 +19,7 @@ import { RoomRole } from '../properties/entities/room-role.entity';
 import { ElementType } from './entities/element-type.entity';
 import { Minute } from './entities/minute.entity';
 import { Element } from './entities/element.entity';
+import { Third } from './entities/third.entity';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { Element } from './entities/element.entity';
       Element,
       ElementType,
       Minute,
+      Third
     ]),
   ],
   controllers: [InventoriesController],

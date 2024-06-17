@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Inventory } from './entities/inventory.entity';
 import { Repository } from 'typeorm';
 import { UpdateInventoryDto } from './dto/update-inventory.dto';
+import { Contract } from './entities/contract.entity';
 
 @Injectable()
 export class InventoriesService {
@@ -10,19 +11,14 @@ export class InventoriesService {
   private inventoriesRepository: Repository<Inventory>;
 
   async findOne(id: number) {
-    let review = await this.inventoriesRepository.findOne({
-      where: { id: id },
+    const inventory = await this.inventoriesRepository.find({
       relations: [
         'contract',
+        'contract.third',
         'contract.property',
-        'contract.property.rooms',
-        'minutes',
-        'minutes.element',
-        'minutes.element.elementType',
-        'minutes.element.room',
       ],
     });
-    return review;
+    return inventory;
   }
 
   async update(id: number, updateInventoryDto: UpdateInventoryDto) {
