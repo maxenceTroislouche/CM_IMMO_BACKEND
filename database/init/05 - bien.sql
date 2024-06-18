@@ -38,7 +38,6 @@ INSERT INTO tiers (id, id_type_tiers, nom, prenom, date_de_naissance, numero_sec
 
 -- Insérer photo
 INSERT INTO photo (id, chemin) VALUES (1, 'nouveaux-batiments-espaces-verts.jpg');
-<<<<<<< HEAD
 INSERT INTO photo (id, chemin) VALUES (2, 'chambre-contemporaine-dans-un-appartement-en-noir-et-.jpg');
 INSERT INTO photo (id, chemin) VALUES (3, 'd13b8acc1444302ecc2d2563850b3af9.jpg');
 INSERT INTO photo (id, chemin) VALUES (4, 'chambre-appartement-t3.jpg');
