@@ -11,8 +11,8 @@ export class InventoriesController {
 
   @Get(':id')
   @ApiOperation({ summary: 'Get one inventory by id' })
-  async findOne(@Param('id') id: string) {
-    return await this.inventoriesService.findOne(+id);
+  async findOne(@Param('id') id: number) {
+    return await this.inventoriesService.findOne(id);
   }
 
   @Patch(':id')
