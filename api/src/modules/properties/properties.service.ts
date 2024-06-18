@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { CreatePropertyDto } from './dto/create-property.dto';
 import { UpdatePropertyDto } from './dto/update-property.dto';
@@ -9,11 +9,23 @@ import { FindAllPropertiesDto } from './dto/findall-property.dto';
 import { Photo } from './entities/photo.entity';
 import { Client } from 'minio';
 import { FindOnePropertyDto } from './dto/findone-property.dto';
+import { AgentSignature } from './entities/agent-signature.entity';
+import { RenterSignature } from './entities/renter-signature.entity';
+import { OwnerSignature } from './entities/owner-signature.entity';
 
 @Injectable()
 export class PropertiesService {
   @InjectRepository(Property)
   private propertiesRepository: Repository<Property>;
+
+  @InjectRepository(AgentSignature)
+  private agentSignatureRepository: Repository<AgentSignature>;
+
+  @InjectRepository(RenterSignature)
+  private renterSignatureRepository: Repository<RenterSignature>;
+
+  @InjectRepository(OwnerSignature)
+  private ownerSignatureRepository: Repository<OwnerSignature>;
 
   @InjectRepository(Photo)
   private photosRepository: Repository<Photo>;
@@ -43,8 +55,6 @@ export class PropertiesService {
 
     let url = await minioClient.presignedGetObject('immotep-files', filename, 60*60);
     return url;
-  
-    // return `https://minio.taffin.ovh/immotep-files/${filename}`;
   } 
 
   async findAll() {
@@ -60,6 +70,20 @@ export class PropertiesService {
       }
          
       let property_obj = new FindAllPropertiesDto();
+      // Si pas de bail ou état des lieux enregistrés alors skip      
+      if (property.contracts.length === 0 || property.contracts.at(-1).inventories.length === 0)
+        continue;
+
+      // Si dernier état des lieux déjà signé alors skip
+      const inventoryId = property.contracts.at(-1).inventories.at(-1).id;
+
+      const agentSignature = await this.agentSignatureRepository.find({ where: { inventoryId: inventoryId }});
+      const renterSignature = await this.renterSignatureRepository.find({ where: { inventoryId: inventoryId }});
+      const ownerSignature = await this.ownerSignatureRepository.find({ where: { inventoryId: inventoryId }});
+
+      if (agentSignature === null || renterSignature === null || ownerSignature === null)
+        continue;
+
       property_obj.id = property.id;
       property_obj.nomProprietaire = property.owner.lastname;
       property_obj.prenomProprietaire = property.owner.firstname;
@@ -94,16 +118,29 @@ export class PropertiesService {
       photos.push(photoUrl);
     }
 
+    let progress = null;
+    let inventoryId = null;
+    let isStartingInventory = null;
+    let contractId = null;
+    if (property.contracts.length !== 0) {
+      contractId = property.contracts.at(-1).id;
+      if (property.contracts.at(-1).inventories.length !== 0) {
+        isStartingInventory = property.contracts.at(-1).inventories.at(-1).isStartingInventory;
+        inventoryId = property.contracts.at(-1).inventories.at(-1).id;
+        progress = property.contracts.at(-1).inventories.at(-1).progress;
+      }
+    }
+
     // TODO: Ajouter les photos + nombre de pièces
     let propertyDto = new FindOnePropertyDto();
     propertyDto.id = property.id;
     propertyDto.propertyType = property.propertyType.lib;
     propertyDto.city = property.city.name;
     propertyDto.postalCode = property.city.postalCode;
-    propertyDto.progress = property.contracts.at(-1).inventories.at(-1).progress;
-    propertyDto.inventoryId = property.contracts.at(-1).inventories.at(-1).id;
-    propertyDto.isStartingInventory = property.contracts.at(-1).inventories.at(-1).isStartingInventory;
-    propertyDto.contractId = property.contracts.at(-1).id;
+    propertyDto.progress = progress;
+    propertyDto.inventoryId = inventoryId;
+    propertyDto.isStartingInventory = isStartingInventory;
+    propertyDto.contractId = contractId;
     propertyDto.numberOfRooms = property.rooms.length;
     propertyDto.streetNumber = property.streetNumber;
     propertyDto.streetName = property.streetName;
@@ -116,5 +153,4 @@ export class PropertiesService {
     propertyDto.photos = photos;
     return propertyDto;
   }
-
 }

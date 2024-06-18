@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, Render } from '@nestjs/common';
 import { PropertiesService } from './properties.service';
 import { PropertiesController } from './properties.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -16,9 +16,12 @@ import { EstateAgent } from '../estateAgents/entities/estateAgent.entity';
 import { Room } from './entities/room.entity';
 import { RoomRole } from './entities/room-role.entity';
 import { RoomType } from './entities/room-type.entity';
+import { AgentSignature } from './entities/agent-signature.entity';
+import { OwnerSignature } from './entities/owner-signature.entity';
+import { RenterSignature } from './entities/renter-signature.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Property, City, PropertyType, HeatingType, WaterHeatingType, Photo, Person, PersonType, Contract, Inventory, EstateAgent, Room, RoomRole, RoomType])],
+  imports: [TypeOrmModule.forFeature([Property, City, PropertyType, HeatingType, WaterHeatingType, Photo, Person, PersonType, Contract, Inventory, EstateAgent, Room, RoomRole, RoomType, AgentSignature, OwnerSignature, RenterSignature])],
   controllers: [PropertiesController],
   providers: [PropertiesService],
   exports: [PropertiesService]
