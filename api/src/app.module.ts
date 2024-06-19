@@ -26,7 +26,7 @@ import { SignaturesModule } from './modules/signatures/signatures.module';
     PropertiesModule,
     InventoriesModule,
     MinutesModule,
-    SignaturesModule
+    SignaturesModule,
   ],
 })
 export class AppModule {}
