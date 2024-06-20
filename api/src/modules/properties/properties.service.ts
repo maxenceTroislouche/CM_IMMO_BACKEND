@@ -74,16 +74,6 @@ export class PropertiesService {
       if (property.contracts.length === 0 || property.contracts.at(-1).inventories.length === 0)
         continue;
 
-      // Si dernier état des lieux déjà signé alors skip
-      const inventoryId = property.contracts.at(-1).inventories.at(-1).id;
-
-      const agentSignature = await this.agentSignatureRepository.find({ where: { inventoryId: inventoryId }});
-      const renterSignature = await this.renterSignatureRepository.find({ where: { inventoryId: inventoryId }});
-      const ownerSignature = await this.ownerSignatureRepository.find({ where: { inventoryId: inventoryId }});
-
-      if (agentSignature === null || renterSignature === null || ownerSignature === null)
-        continue;
-
       property_obj.id = property.id;
       property_obj.nomProprietaire = property.owner.lastname;
       property_obj.prenomProprietaire = property.owner.firstname;
