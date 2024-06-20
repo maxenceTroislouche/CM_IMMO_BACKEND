@@ -10,7 +10,7 @@ import { Photo } from './entities/photo.entity';
 import { Client } from 'minio';
 import { FindOnePropertyDto } from './dto/findone-property.dto';
 import { AgentSignature } from './entities/agent-signature.entity';
-import { RenterSignature } from './entities/renter-signature.entity';
+import { TenantSignature } from './entities/tenant-signature.entity';
 import { OwnerSignature } from './entities/owner-signature.entity';
 
 @Injectable()
@@ -21,8 +21,8 @@ export class PropertiesService {
   @InjectRepository(AgentSignature)
   private agentSignatureRepository: Repository<AgentSignature>;
 
-  @InjectRepository(RenterSignature)
-  private renterSignatureRepository: Repository<RenterSignature>;
+  @InjectRepository(TenantSignature)
+  private renterSignatureRepository: Repository<TenantSignature>;
 
   @InjectRepository(OwnerSignature)
   private ownerSignatureRepository: Repository<OwnerSignature>;

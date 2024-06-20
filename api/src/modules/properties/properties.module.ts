@@ -18,10 +18,10 @@ import { RoomRole } from './entities/room-role.entity';
 import { RoomType } from './entities/room-type.entity';
 import { AgentSignature } from './entities/agent-signature.entity';
 import { OwnerSignature } from './entities/owner-signature.entity';
-import { RenterSignature } from './entities/renter-signature.entity';
+import { TenantSignature } from './entities/tenant-signature.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Property, City, PropertyType, HeatingType, WaterHeatingType, Photo, Person, PersonType, Contract, Inventory, EstateAgent, Room, RoomRole, RoomType, AgentSignature, OwnerSignature, RenterSignature])],
+  imports: [TypeOrmModule.forFeature([Property, City, PropertyType, HeatingType, WaterHeatingType, Photo, Person, PersonType, Contract, Inventory, EstateAgent, Room, RoomRole, RoomType, AgentSignature, OwnerSignature, TenantSignature])],
   controllers: [PropertiesController],
   providers: [PropertiesService],
   exports: [PropertiesService]

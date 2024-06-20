@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('signature_locataire')
-export class RenterSignature {
+export class TenantSignature {
     @PrimaryGeneratedColumn()
     id: number;
 

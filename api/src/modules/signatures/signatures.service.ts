@@ -3,7 +3,7 @@ import { AgentSignature } from "../properties/entities/agent-signature.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { OwnerSignature } from "../properties/entities/owner-signature.entity";
-import { RenterSignature } from "../properties/entities/renter-signature.entity";
+import { TenantSignature } from "../properties/entities/tenant-signature.entity";
 import { CreateSignatureDto } from "./dto/create-signature.dto";
 import { Inventory } from "../inventories/entities/inventory.entity";
 import { Client } from "minio";
@@ -19,8 +19,8 @@ export class SignaturesService {
   @InjectRepository(OwnerSignature)
   private ownerSignaturesRepository: Repository<OwnerSignature>;
 
-  @InjectRepository(RenterSignature)
-  private renterSignaturesRepository: Repository<RenterSignature>;
+  @InjectRepository(TenantSignature)
+  private renterSignaturesRepository: Repository<TenantSignature>;
 
   @InjectRepository(Inventory)
   private inventoryRepository: Repository<Inventory>;
