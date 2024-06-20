@@ -51,7 +51,7 @@ export class MinutesService {
       secretKey: '3YXQium7Hrmyqz1zS694t6gF4wgbe6ufO7DLABuf',
     });
 
-    const photoIds = [];
+    const photoIds = [...minute.photos];
 
     // TODO: Créer les photos et les affecte à la minute
     for (const photoB64 of updateMinuteDto.photos) {
